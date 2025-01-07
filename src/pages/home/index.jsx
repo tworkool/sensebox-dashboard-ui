@@ -19,7 +19,6 @@ import {
   DeviceDesktopAnalytics,
   MapSearch,
 } from "tabler-icons-react";
-import posthog from "posthog-js";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { requestSenseboxDBMiscDataFetch } from "../../redux/actions/app_state";
@@ -79,19 +78,19 @@ const HomePage = () => {
                   {senseboxDBMiscData?.data ? (
                     <div className="sbd-home-info__stack__data">
                       <div>
-                        <Text size="xl" weight={500}>
+                        <Text size="xl" fw={500}>
                           {senseboxDBMiscData.data.registeredBoxes}
                         </Text>
                         <Text size="sm">Registered Senseboxes</Text>
                       </div>
                       <div>
-                        <Text size="xl" weight={500}>
+                        <Text size="xl" fw={500}>
                           {senseboxDBMiscData.data.measurementsTotal}
                         </Text>
                         <Text size="sm">Sensor Measurements ...</Text>
                       </div>
                       <div>
-                        <Text size="xl" weight={500}>
+                        <Text size="xl" fw={500}>
                           {senseboxDBMiscData.data.measurementsPastHour}
                         </Text>
                         <Text size="sm">... within the Last Hour</Text>
@@ -122,12 +121,6 @@ const HomePage = () => {
                 size="xl"
                 component={Link}
                 to="dashboard"
-                onClick={() =>
-                  posthog.capture(
-                    "Click on button: change page from Landingpage to dashboard",
-                    { property: "-" }
-                  )
-                }
               >
               Go to Dashboard
               </Button>
@@ -135,23 +128,23 @@ const HomePage = () => {
           </div>
           <Container size={1200} className="sbd-home-feature-container">
             <div className="sbd-home-feature-container__group">
-              <Stack align="center" spacing="lg">
+              <Stack align="center" gap="lg">
                 <AccessPoint size={48} />
-                <Text align="center">
+                <Text ta="center">
                 Live updates for sensor data to keep track of latest
                 measurements
                 </Text>
               </Stack>
-              <Stack align="center" spacing="lg">
+              <Stack align="center" gap="lg">
                 <DeviceDesktopAnalytics size={48} />
-                <Text align="center">
+                <Text ta="center">
                 Detailed analytics with graphs and comparisons and whatnot (soon
                 available)
                 </Text>
               </Stack>
-              <Stack align="center" spacing="lg">
+              <Stack align="center" gap="lg">
                 <MapSearch size={48} />
-                <Text align="center">
+                <Text ta="center">
                 Aggregated sensor data from many Senseboxes, displayed on an
                 interactive map (soon available)
                 </Text>

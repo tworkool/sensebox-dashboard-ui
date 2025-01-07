@@ -10,7 +10,7 @@ const DashboardFooter = () => {
       <div className="sbd-dashboard-footer__content">
         <Group>
           <Text className="sbd-dashboard-footer__content__title">Sensebox Data Dashboard</Text>
-          <Text className="sbd-dashboard-footer__content__version" size="xs" color="dimmed">{`v${version}`}</Text>
+          <Text className="sbd-dashboard-footer__content__version" size="xs" c="dimmed">{`v${version}`}</Text>
           <ActionIcon
             color="dark"
             variant="subtle"

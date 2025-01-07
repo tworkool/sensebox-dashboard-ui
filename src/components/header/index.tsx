@@ -40,13 +40,13 @@ const Header = (props: headerProps) => {
             <span>Menu</span>
             <ChevronDown size={16} />
           </Button> */}
-          <Group spacing="xs" className="wbs-header__nav__item wbs-header__nav__item--dropdown">
+          <Group gap="xs" className="wbs-header__nav__item wbs-header__nav__item--dropdown">
             <span>Menu</span>
             <ChevronDown size={18} />
           </Group>
         </Popover.Target>
         <Popover.Dropdown>
-          <Stack spacing="xs">
+          <Stack gap="xs">
             {navLinkElements}
           </Stack>
         </Popover.Dropdown>

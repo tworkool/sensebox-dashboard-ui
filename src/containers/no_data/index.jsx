@@ -10,7 +10,7 @@ const NoDataContainer = (props) => {
         <Stack align="center">
           <Group>
             <SearchOff size={32} strokeWidth={1.5} color={"#5c5c5c"} />
-            <Text size="xl" color={"#5c5c5c"}>
+            <Text size="xl" c={"#5c5c5c"}>
               No Results
             </Text>
           </Group>

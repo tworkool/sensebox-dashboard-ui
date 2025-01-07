@@ -45,7 +45,6 @@ import { useMemo } from "react";
 import LiveAnalyticsItem from "../../components/live_analytics_item";
 import { DashboardContext } from "../../pages/dashboard";
 import SunApiWidget from "../../components/sun_api_widget";
-import DashboardStartupTutorial from "../dashboard_startup_tutorial";
 
 const LiveAnalyticsContainer = () => {
   const dashboardContext = useContext(DashboardContext);
@@ -252,7 +251,7 @@ const LiveAnalyticsContainer = () => {
                     <Button
                       color="dark.3"
                       size="xs"
-                      leftIcon={<FileSettings size={18} />}
+                      leftSection={<FileSettings size={18} />}
                     >
                       Views &amp; Settings
                     </Button>
@@ -260,7 +259,7 @@ const LiveAnalyticsContainer = () => {
                 </Popover.Target>
 
                 <Popover.Dropdown>
-                  <Stack spacing="xs">
+                  <Stack gap="xs">
                     <SegmentedControl
                       onChange={(s) => {
                         setdataView(s);
@@ -318,14 +317,14 @@ const LiveAnalyticsContainer = () => {
                   <Button
                     color="dark.3"
                     size="xs"
-                    leftIcon={<TablerIconsFilter size={18} />}
+                    leftSection={<TablerIconsFilter size={18} />}
                   >
                     Filters
                   </Button>
                 </Popover.Target>
 
                 <Popover.Dropdown>
-                  <Stack spacing="xs">
+                  <Stack gap="xs">
                     <TextInput
                       placeholder="Search"
                       radius="sm"
@@ -432,7 +431,7 @@ const LiveAnalyticsContainer = () => {
                 </Button>
               )}
             </Group>
-            <Group spacing="xs">
+            <Group gap="xs">
               {sensorFilters.search !== sensorFilterDefaultValues.search &&
                 filterSelection(`Search: ${sensorFilters.search}`, () => {
                   //handleFilters({ search: sensorFilterDefaultValues.search });
@@ -473,7 +472,7 @@ const LiveAnalyticsContainer = () => {
               </div>
               <Divider my="md" label="Other Widgets" labelPosition="center" />
               <div className="sbd-live-analytics-content__extra-widgets">
-                <SunApiWidget />
+                {/* <SunApiWidget /> */}
               </div>
             </>
           )}

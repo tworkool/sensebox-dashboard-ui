@@ -1,4 +1,4 @@
-import moment from "moment";
+import dayjs from "dayjs";
 import CONSTANTS from "../../../utils/constants";
 
 const QUERY_DATA_MODIFIERS = {
@@ -52,7 +52,7 @@ const QUERY_DATA_MODIFIERS = {
 
             if (
                 i.lastMeasurement?.createdAt === undefined ||
-                moment().diff(moment(i.lastMeasurement.createdAt), "hours") >
+                dayjs().diff(dayjs(i.lastMeasurement.createdAt), "hours") >
                 CONSTANTS.SENSEBOX_SENSOR_INACTIVITY_TIME_HOURS
             )
                 isDormant = true;
@@ -60,8 +60,8 @@ const QUERY_DATA_MODIFIERS = {
             var lastMeasurementTime: number | null = null;
             var lastMeasurementValue = CONSTANTS.DEFAULT_NULL_FALLBACK_VALUE;
             if (!isDormant) {
-                lastMeasurementTime = moment().diff(
-                    moment(i.lastMeasurement.createdAt),
+                lastMeasurementTime = dayjs().diff(
+                    dayjs(i.lastMeasurement.createdAt),
                     "seconds"
                 );
                 lastMeasurementValue = i.lastMeasurement.value;
@@ -105,16 +105,16 @@ const QUERY_DATA_MODIFIERS = {
         const utcOffset = data["utcOffset"];
         return {
             "utcOffset": data["utcOffset"],
-            "sunrise": moment(data["sunrise"]).utcOffset(utcOffset),
-            "sunset": moment(data["sunset"]).utcOffset(utcOffset),
-            "solar_noon": moment(data["solar_noon"]).utcOffset(utcOffset),
+            "sunrise": dayjs(data["sunrise"]).utcOffset(utcOffset),
+            "sunset": dayjs(data["sunset"]).utcOffset(utcOffset),
+            "solar_noon": dayjs(data["solar_noon"]).utcOffset(utcOffset),
             "day_length": data["day_length"],
-            "civil_twilight_begin": moment(data["civil_twilight_begin"]).utcOffset(utcOffset),
-            "civil_twilight_end": moment(data["civil_twilight_end"]).utcOffset(utcOffset),
-            "nautical_twilight_begin": moment(data["nautical_twilight_begin"]).utcOffset(utcOffset),
-            "nautical_twilight_end": moment(data["nautical_twilight_end"]).utcOffset(utcOffset),
-            "astronomical_twilight_begin": moment(data["astronomical_twilight_begin"]).utcOffset(utcOffset),
-            "astronomical_twilight_end": moment(data["astronomical_twilight_end"]).utcOffset(utcOffset),
+            "civil_twilight_begin": dayjs(data["civil_twilight_begin"]).utcOffset(utcOffset),
+            "civil_twilight_end": dayjs(data["civil_twilight_end"]).utcOffset(utcOffset),
+            "nautical_twilight_begin": dayjs(data["nautical_twilight_begin"]).utcOffset(utcOffset),
+            "nautical_twilight_end": dayjs(data["nautical_twilight_end"]).utcOffset(utcOffset),
+            "astronomical_twilight_begin": dayjs(data["astronomical_twilight_begin"]).utcOffset(utcOffset),
+            "astronomical_twilight_end": dayjs(data["astronomical_twilight_end"]).utcOffset(utcOffset),
         }
     }
 };

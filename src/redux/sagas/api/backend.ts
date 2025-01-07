@@ -1,5 +1,5 @@
 import { fetch } from "cross-fetch";
-import moment from "moment";
+import dayjs from "dayjs";
 import ENVIRONMENT from "../../../utils/env";
 import { isFloat } from "../../../utils/helpers";
 import MOCK_DATA from "./mockData";
@@ -89,7 +89,7 @@ const BACKEND = {
 
     fetchSunApiData: (lat, lon, date: any = null) => {
         // Sunset/Sunrise API
-        const _date = !date ? moment().format("YYYY-MM-DD") : date.format("YYYY-MM-DD");
+        const _date = !date ? dayjs().format("YYYY-MM-DD") : date.format("YYYY-MM-DD");
         var url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&formatted=0&date=${_date}`;
         return _fetch(url, MOCK_DATA.sunApiData(17));
     },

@@ -12,7 +12,7 @@ const InfoPage = () => {
       <Text>I hope the dashboard and all other content are easy to understand without explanation. However if you need help, this is the right place! Please read the quick guide for more info.</Text>
       
       <Title order={2}>Quick Guide</Title>
-      <Text color="dimmed">{"Sry, but there is no content here yet 😞. I didn't have time to create this chapter."}</Text>
+      <Text c="dimmed">{"Sry, but there is no content here yet 😞. I didn't have time to create this chapter."}</Text>
       
       <Title order={2}>API/Services Info</Title>
       <Text>{"This webapp uses a number of different service/API's. Here is a list with possible legal disclaimers"}</Text>

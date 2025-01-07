@@ -337,7 +337,7 @@ const LiveAnalyticsValueIndicator = (props) => {
         </div>
       </HoverCard.Target>
       <HoverCard.Dropdown>
-        <Text size="sm" weight="bold">
+        <Text size="sm" fw="bold">
           {_valueInfo.table.label}
         </Text>
         {selectedSectionDescription && (

@@ -17,7 +17,7 @@ import { requestSenseboxInfoDataFetch } from "../../redux/actions/app_state";
 import DashboardFooter from "../../components/dashboard_footer";
 import CONSTANTS from "../../utils/constants";
 import DetailedDataContainer from "../../containers/detailed_data";
-import DashboardStartupTutorial from "../../containers/dashboard_startup_tutorial";
+/* import DashboardStartupTutorial from "../../containers/dashboard_startup_tutorial"; */
 
 const DashboardContext = createContext();
 
@@ -80,9 +80,9 @@ const DashboardPage = () => {
           className="sbd-dashboard-content__analytics" 
           style={hasSenseboxData ? undefined : {paddingLeft: 0}}
         >
-          {!hasSenseboxData &&
+          {/* {!hasSenseboxData &&
             <DashboardStartupTutorial/>
-          }
+          } */}
           {hasSenseboxData &&
             <Tabs
               style={hasSenseboxData ? undefined : {paddingLeft: 0}}

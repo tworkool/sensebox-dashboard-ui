@@ -22,7 +22,6 @@ import {
   Tooltip,
   UnstyledButton,
 } from "@mantine/core";
-import posthog from "posthog-js";
 import { Bookmark, Search, Settings as IconSettings, Home as IconHome, InfoCircle as IconInfoCircle, GridDots } from "tabler-icons-react";
 import "./style.scss";
 import { useSearchParams } from "react-router-dom";
@@ -93,7 +92,7 @@ const DashboardHeader = () => {
   return (
     <div className="sbd-dashboard-header">
       <div className="sbd-dashboard-header__content">
-        <Group spacing="xl">
+        <Group gap="xl">
           <Indicator size={16} position="middle-end" color="green" withBorder>
             <IdenticonAvatar id={dashboardContext.selectedSenseboxId} />
           </Indicator>
@@ -133,9 +132,8 @@ const DashboardHeader = () => {
         <Group>
           <Menu shadow="md" width={200}>
             <Menu.Target>
-              <Button variant="light" color="gray" compact>
+              <Button variant="light" color="gray" rightSection={<GridDots size={18} />}>
                 <span>Menu</span>
-                <GridDots size={18} />
               </Button>
             </Menu.Target>
 
@@ -165,8 +163,8 @@ const DashboardHeader = () => {
             variant="light"
             color="gray"
             onClick={() => setOpened(true)}
-            leftIcon={<Search size={16} />}
-            rightIcon={
+            leftSection={<Search size={16} />}
+            rightSection={
               <div
                 style={{
                   display: "flex",
@@ -183,7 +181,7 @@ const DashboardHeader = () => {
           Find a SenseBox
           </Button>
           <Button
-            leftIcon={<Search size={18} />}
+            leftSection={<Search size={18} />}
             variant="light"
             color="gray"
             onClick={() => setOpened(true)}
@@ -200,9 +198,6 @@ const DashboardHeader = () => {
         >
           <form className="sbd-search-grid" onSubmit={e => {
             e?.preventDefault();
-            posthog.capture("Search SenseBox on dashboard", {
-              property: searchContent,
-            });
             handleSearchExecution();
           }}>
             <TextInput
@@ -267,7 +262,7 @@ const DashboardHeader = () => {
                         >
                           {e.name}
                         </Highlight>
-                        <Text size="xs" color="dimmed">
+                        <Text size="xs" c="dimmed">
                           {e._id}
                         </Text>
                       </Stack>
@@ -287,10 +282,10 @@ const DashboardHeader = () => {
               </>
             }
           />
-          <Group position="center">
+          <Group justify="center">
             {bookmarkedBoxes.length === 0 && (
-              <Group position="center" grow>
-                <Text size="sm" color="dimmed">
+              <Group justify="center" grow>
+                <Text size="sm" c="dimmed">
                   No Bookmarked Boxes yet!
                 </Text>
               </Group>

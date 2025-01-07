@@ -38,7 +38,7 @@ const Footer = (props: headerProps) => {
       <div className="wbs-footer__nav">
         {navLinkElements}
       </div>
-      <Text className="wbs-footer__copyright" align="center">
+      <Text className="wbs-footer__copyright" ta="center">
         {`Sensebox Data Dashboard | Copyright © Oliver Tworkowski ${new Date().getFullYear()}`}
       </Text>
     </div>

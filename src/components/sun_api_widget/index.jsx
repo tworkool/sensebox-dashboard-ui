@@ -21,7 +21,7 @@ import {
   getGeocodingData,
   getSunApiData,
 } from "../../redux/selectors/appState";
-import moment from "moment";
+import dayjs from "dayjs";
 import "./style.scss";
 import { getFormattedHoursStringFromSeconds } from "../../utils/helpers";
 
@@ -30,16 +30,16 @@ const SunApiWidget = (props) => {
   const geocodingData = useSelector(getGeocodingData);
   const [aggregatedSunApiData, setAggregatedSunApiData] = useState();
   const [sunApiDataActiveDate, setSunApiDataActiveDate] = useState();
-  const [liveTime, setLiveTime] = useState(moment());
+  const [liveTime, setLiveTime] = useState(dayjs());
   const [localLiveTime, setLocalLiveTime] = useState(null);
 
   useEffect(() => {
     setInterval(() => {
-      setLiveTime(moment());
+      setLiveTime(dayjs());
     }, 1000 * 60); // 1000ms*60 = 60s = 1min
     /* setInterval(() => {
       setLiveTime((old) => {
-        const ret = moment(old).add(15, "minutes");
+        const ret = dayjs(old).add(15, "minutes");
         return ret;
       });
     }, 1000); // 1000ms*60*10 = 60s * 10 = 1min * 10 = 10min */
@@ -48,7 +48,7 @@ const SunApiWidget = (props) => {
   useEffect(() => {
     if (!aggregatedSunApiData?.utcOffset) return;
     setLocalLiveTime(
-      moment(liveTime).utcOffset(aggregatedSunApiData.utcOffset)
+      dayjs(liveTime).utcOffset(aggregatedSunApiData.utcOffset)
     );
   }, [aggregatedSunApiData, liveTime]);
 
@@ -97,9 +97,9 @@ const SunApiWidget = (props) => {
         disabled={!geocodingData?.data?.attribution}
       >
         <div>
-          <Group spacing="xs">
+          <Group gap="xs">
             <MapPin size={22} strokeWidth={1.5} color={"black"} />
-            <Text weight={500}>Location</Text>
+            <Text fw={500}>Location</Text>
           </Group>
           <Text>
             {geoCodingLocation ? geoCodingLocation : "At SenseBox Location"}
@@ -113,13 +113,13 @@ const SunApiWidget = (props) => {
     (title, logo, value, subValue = undefined) => {
       return (
         <div className="sbd-sun-api-widget__data-content__info-field">
-          <Group spacing="xs">
+          <Group gap="xs">
             {logo}
-            <Text weight={500}>{title}</Text>
+            <Text fw={500}>{title}</Text>
           </Group>
           <Text>{value}</Text>
           {subValue && (
-            <Text size={"sm"} color="dimmed">
+            <Text size={"sm"} c="dimmed">
               {subValue}
             </Text>
           )}
@@ -132,12 +132,12 @@ const SunApiWidget = (props) => {
   return (
     <Card shadow="xs" radius="lg" p="lg" className="sbd-sun-api-widget">
       <Card.Section withBorder inheritPadding py="xs">
-        <Group spacing="xs">
+        <Group gap="xs">
           {/*  <Temperature /> */}
-          <Text size="xl" weight={500}>
+          <Text size="xl" fw={500}>
             Sunset/Sunrise Times
           </Text>
-          <Text size="xs" color={"dimmed"}>
+          <Text size="xs" c={"dimmed"}>
             More Info on https://sunrise-sunset.org/
           </Text>
         </Group>
@@ -158,9 +158,9 @@ const SunApiWidget = (props) => {
         <Group>
           {locationGeocodingElement()}
           <div>
-            <Group spacing="xs">
+            <Group gap="xs">
               <Clock size={22} strokeWidth={1.5} color={"black"} />
-              <Text weight={500}>Local Time</Text>
+              <Text fw={500}>Local Time</Text>
             </Group>
             <Skeleton visible={!localLiveTime}>
               <Text>
@@ -232,8 +232,8 @@ const SunApiWidget = (props) => {
         </div>
       </Card.Section>
       <Card.Section inheritPadding py="xs">
-        <Group spacing="xs">
-          <Text size="xs" weight={600} color="red">
+        <Group gap="xs">
+          <Text size="xs" fw={600} c="red">
             Live
           </Text>
           <AccessPoint size={18} strokeWidth={2} color={"#E20808"} />

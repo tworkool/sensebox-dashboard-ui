@@ -36,7 +36,7 @@ import {
   getSenseboxInfoData,
 } from "../../redux/selectors/appState";
 import { DashboardContext } from "../../pages/dashboard";
-import moment from "moment";
+import dayjs from "dayjs";
 import CONSTANTS from "../../utils/constants";
 import { useLocalStorage, useClickOutside } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
@@ -63,11 +63,11 @@ const DashboardBoxInfo = () => {
 
   const diffFromCreateDate = useMemo(() => {
     if (!senseboxInfoData?.data?.createdAt) return "";
-    const createDate = moment(senseboxInfoData.data.createdAt);
-    const yearsFromCreate = moment().diff(createDate, "years");
+    const createDate = dayjs(senseboxInfoData.data.createdAt);
+    const yearsFromCreate = dayjs().diff(createDate, "years");
     return `Created ${
       yearsFromCreate === 0
-        ? `${moment().diff(createDate, "days")} day(s)`
+        ? `${dayjs().diff(createDate, "days")} day(s)`
         : `${yearsFromCreate} year(s)`
     } ago`;
   }, [senseboxInfoData]);
@@ -119,7 +119,7 @@ const DashboardBoxInfo = () => {
       <Tooltip multiline width={300} label={geocodingData?.data?.attribution}>
         <Skeleton visible={isLoadingGeocodingData} width="min(100%, 200px)">
           {!!geoCodingLocation && (
-            <Group spacing="xs">
+            <Group gap="xs">
               <MapPin size={18} strokeWidth={1.5} color={"black"} />
               <Text size="sm">{geoCodingLocation}</Text>
             </Group>
@@ -206,11 +206,11 @@ const DashboardBoxInfo = () => {
             {senseboxInfoData?.data && (
               <>
                 <div>
-                  <Text size="lg" weight={500}>
+                  <Text size="lg" fw={500}>
                     {senseboxInfoData.data.name}
                   </Text>
-                  <Group spacing="xs">
-                    <Text size="xs" color="dimmed">
+                  <Group gap="xs">
+                    <Text size="xs" c="dimmed">
                       {senseboxInfoData.data._id}
                     </Text>
                     <ActionIcon
@@ -232,7 +232,7 @@ const DashboardBoxInfo = () => {
                     </ActionIcon>
                   </Group>
                   <Space h="xs" />
-                  <Group spacing="xs">
+                  <Group gap="xs">
                     {senseboxInfoData?.data?.exposure !== "unknown" && (
                       <Badge color="green" size="sm" radius="sm" variant="dot">
                         {senseboxInfoData.data.exposure}
@@ -244,8 +244,8 @@ const DashboardBoxInfo = () => {
                     <Badge color="yellow" size="sm" radius="sm" variant="dot">
                       {diffFromCreateDate}
                     </Badge>
-                    {moment().diff(
-                      moment(senseboxInfoData.data.updatedAt),
+                    {dayjs().diff(
+                      dayjs(senseboxInfoData.data.updatedAt),
                       "days"
                     ) > CONSTANTS.SENSEBOX_INACTIVITY_TIME_DAYS ? (
                         <Badge color="red" size="sm" radius="sm" variant="filled">
@@ -290,7 +290,7 @@ const DashboardBoxInfo = () => {
                     labelPosition="center"
                     style={{ marginTop: "auto" }}
                   />
-                  <Group spacing="xs">
+                  <Group gap="xs">
                     <Tooltip
                       label={
                         isBookmarked

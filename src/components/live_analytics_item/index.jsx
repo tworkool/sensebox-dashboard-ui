@@ -12,8 +12,8 @@ const LiveAnalyticsItem = (props) => {
 
   const liveUpdateTimeElement = useCallback(() => {
     return !sensorData.isDormant ? (
-      <Group spacing="xs">
-        <Text size="xs" weight={600} color="red">
+      <Group gap="xs">
+        <Text size="xs" fw={600} c="red">
           {getMinuteFormattedString(liveTime)}
         </Text>
         <AccessPoint size={18} strokeWidth={2} color={"#E20808"} />
@@ -63,11 +63,11 @@ const LiveAnalyticsItem = (props) => {
             }`}
           >
             <Card.Section withBorder inheritPadding py="xs">
-              <Group spacing="xs">
+              <Group gap="xs">
                 {sensorData.icon && sensorData.icon !== "" && (
                   <span className={`osem-icon ${sensorData.icon}`} />
                 )}
-                <Text size="xl" weight={500}>
+                <Text size="xl" fw={500}>
                   {`${sensorData.lastMeasurementValue} ${sensorData.unit}`}
                 </Text>
               </Group>
@@ -96,7 +96,7 @@ const LiveAnalyticsItem = (props) => {
                   )}
                 </>
               )}
-              <Group spacing="xs">
+              <Group gap="xs">
                 <Text size="md">{sensorData.title}</Text>
                 {badgeElements.typeBadge}
               </Group>

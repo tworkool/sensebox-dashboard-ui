@@ -6,7 +6,7 @@ import {
   Text,
   UnstyledButton,
 } from "@mantine/core";
-import moment from "moment";
+import dayjs from "dayjs";
 import React, { useCallback, useState } from "react";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
@@ -39,9 +39,9 @@ const DetailedDataContainer = () => {
   const [selectedRelativeTime, setSelectedRelativeTime] = useState(
     relativeTimeOptions[0].options[3]
   );
-  const [endDate, setEndDate] = useState(moment());
+  const [endDate, setEndDate] = useState(dayjs());
   const [startDate, setStartDate] = useState(
-    moment(endDate).subtract(
+    dayjs(endDate).subtract(
       selectedRelativeTime.momentData.delta,
       selectedRelativeTime.momentData.att
     )
@@ -58,9 +58,9 @@ const DetailedDataContainer = () => {
 
   const handleRelativeTimeSelect = useCallback((e) => {
     setSelectedRelativeTime(e);
-    const _endDate = moment();
+    const _endDate = dayjs();
     setStartDate(
-      moment(_endDate).subtract(e.momentData.delta, e.momentData.att)
+      dayjs(_endDate).subtract(e.momentData.delta, e.momentData.att)
     );
     setEndDate(_endDate);
   }, []);
@@ -80,7 +80,7 @@ const DetailedDataContainer = () => {
               color="dark.3"
               variant="default"
               size="xs"
-              leftIcon={<Calendar size={18} />}
+              leftSection={<Calendar size={18} />}
             >
               {`${startDate.format(CONSTANTS.DATE_FORMAT)} - ${endDate.format(
                 CONSTANTS.DATE_FORMAT
@@ -93,7 +93,7 @@ const DetailedDataContainer = () => {
               <div className="sbd-detailed-data-relative-time-container__section">
                 {relativeTimeOptions.map((section) => (
                   <React.Fragment key={section.id}>
-                    <Text weight={500} mb="sm" size="sm">
+                    <Text fw={500} mb="sm" size="sm">
                       {section.label}
                     </Text>
                     {section.options.map((option) => (
@@ -106,7 +106,7 @@ const DetailedDataContainer = () => {
                         <Text
                           size="sm"
                           underline={option.id === selectedRelativeTime.id}
-                          color={
+                          fw={
                             option.id === selectedRelativeTime.id
                               ? "blue"
                               : "black"
@@ -128,7 +128,7 @@ const DetailedDataContainer = () => {
             data={preparedSenseboxSensorData}
             placeholder="Pick all that you like"
           />
-          <Button color="blue" size="xs" rightIcon={<GitCompare size={18} />}>
+          <Button color="blue" size="xs" rightSection={<GitCompare size={18} />}>
             Compare
           </Button>
         </Group>
