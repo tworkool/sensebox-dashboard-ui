@@ -45,6 +45,7 @@ import { useMemo } from "react";
 import LiveAnalyticsItem from "../../components/live_analytics_item";
 import { DashboardContext } from "../../pages/dashboard";
 import SunApiWidget from "../../components/sun_api_widget";
+import DashboardStartupTutorial from "../dashboard_startup_tutorial";
 
 const LiveAnalyticsContainer = () => {
   const dashboardContext = useContext(DashboardContext);
@@ -224,27 +225,8 @@ const LiveAnalyticsContainer = () => {
         className="sbd-live-analytics-container__loader"
         //loaderProps={{ size: "sm" }}
       />
-      {!senseboxInfoData?.data || !filteredSenseboxInfoSensorData ? (
-        <NoDataContainer>
-          <Text align="center" size="sm" color={"#5c5c5c"}>
-            {
-              "To display live analytics for a specific Sensebox, you first need to select a Sensebox. You can do so by searching for a Sensebox in the header, or selecting one from your bookmarks!"
-            }
-          </Text>
-          {senseboxMainInfoData?.data && (
-            <Button
-              variant="default"
-              size="xs"
-              leftIcon={<Refresh size={14} />}
-              onClick={() => {
-                refetchSensorData();
-              }}
-              loading={isLoading}
-            >
-              Refresh Results
-            </Button>
-          )}
-        </NoDataContainer>
+      {!filteredSenseboxInfoSensorData ? (
+        <NoDataContainer/>
       ) : (
         <>
           <div className="sbd-dashboard-filters">

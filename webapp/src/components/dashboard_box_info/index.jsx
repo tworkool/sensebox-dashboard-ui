@@ -203,17 +203,6 @@ const DashboardBoxInfo = () => {
           )}
 
           <div className="sbd-dashboard-box-info__data-container">
-            {!senseboxInfoData?.data && (
-              <Alert
-                icon={<AlertCircle size={16} />}
-                title="No Sensebox Selected"
-                color="orange"
-              >
-                Usually information about the selected Sensebox is displayed
-                here. But it seems, you have not selected a Sensebox yet. You
-                can do so by using the search field in the top right corner.
-              </Alert>
-            )}
             {senseboxInfoData?.data && (
               <>
                 <div>

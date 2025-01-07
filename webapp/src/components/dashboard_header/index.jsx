@@ -47,7 +47,7 @@ const DashboardHeader = () => {
     key: "bookmarked-senseboxes",
     defaultValue: [],
   });
-  useHotkeys([["mod+K", () => setOpened(true)]]);
+  useHotkeys([[`mod+${CONSTANTS.SENSEBOX_SEARCH_HOTKEY}`, () => setOpened(true)]]);
   const [searchError, setSearchError] = useState(null);
 
   const handleSearchExecution = useCallback(() => {
@@ -176,7 +176,7 @@ const DashboardHeader = () => {
               >
                 <Kbd>Ctrl</Kbd>
                 <span style={{ margin: "0 5px" }}>+</span>
-                <Kbd>K</Kbd>
+                <Kbd>{CONSTANTS.SENSEBOX_SEARCH_HOTKEY}</Kbd>
               </div>
             }
           >
