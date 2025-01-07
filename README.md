@@ -1,3 +1,6 @@
+> [!IMPORTANT]  
+> Hello, sadly I will discontinue the project for a while... The project uses many old dependencies and kind of bad structuring, which makes it tedious to work in and takes the fun out for me. I attempted to upgrade everything at once within 2 hours. This optimistic attempt did not work out as one might expect haha (see on branch `complete-overhaul` `MIGRATE.md`). I have some really cool ideas to make a super good data-first UI/UX and bring senseBox into a more day-to-day setting with nice analytics, location-based weather and extensions. If I find some more time or some rich philantropist is willing to pay me for it, I will continue this project with passion! The website hosting will continue for now.
+
 # Sensebox Data Dashboard
 [![NPM](https://img.shields.io/badge/webapp-red?label=sensebox-data-dashboard.de)](https://sensebox-data-dashboard.de/)
 [![NPM](https://img.shields.io/badge/senseBox_website-51AA46?label=sensebox.de)](https://sensebox.de/en/)
