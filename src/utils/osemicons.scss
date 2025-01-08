@@ -3,12 +3,12 @@
 
 @font-face {
   font-family: "opensensemap";
-  src: url("../assets/fonts/osm/opensensemap.eot?d8dt7p");
+  src: url("@assets/fonts/osm/opensensemap.eot?d8dt7p");
   src:
-    url("../assets/fonts/osm/opensensemap.eot?d8dt7p#iefix") format("embedded-opentype"),
-    url("../assets/fonts/osm/opensensemap.ttf?d8dt7p") format("truetype"),
-    url("../assets/fonts/osm/opensensemap.woff?d8dt7p") format("woff"),
-    url("../assets/fonts/osm/opensensemap.svg?d8dt7p#opensensemap") format("svg");
+    url("@assets/fonts/osm/opensensemap.eot?d8dt7p#iefix") format("embedded-opentype"),
+    url("@assets/fonts/osm/opensensemap.ttf?d8dt7p") format("truetype"),
+    url("@assets/fonts/osm/opensensemap.woff?d8dt7p") format("woff"),
+    url("@assets/fonts/osm/opensensemap.svg?d8dt7p#opensensemap") format("svg");
   font-weight: normal;
   font-style: normal;
 }

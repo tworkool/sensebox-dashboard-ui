@@ -14,3 +14,4 @@ TODO:
 * add PostCSS (see mantine.dev and vite docu)
 * setup babel?
 * remove duplicate README.md
+* migrate to newest SASS version (fix deprecation warnings in console)

@@ -1,9 +1,9 @@
-@import "../../utils/colors";
-@import "../../utils/mixins";
-@import "../../utils/mixins_background";
-@import "../../components/dashboard_header/dimensions";
-@import "../../components/dashboard_footer/dimensions";
-@import "../../components/dashboard_box_info/dimensions";
+@use "@utils/colors";
+@use "@utils/mixins";
+@use "@utils/mixins_background";
+@use "@components/dashboard_header/style" as header;
+@use "@components/dashboard_footer/style" as footer;
+@use "@components/dashboard_box_info/style" as box_info;
 
 $content-analytics-sections-height: 40px;
 
@@ -57,15 +57,15 @@ $content-analytics-sections-height: 40px;
 }
 
 .sbd-dashboard-content {
-  height: calc(100vh - $dashboard-header-height - $dashboard-footer-height);
+  height: calc(100vh - header.$dashboard-header-height - footer.$dashboard-footer-height);
   @include responsive(phone) {
-    height: calc(100vh - $dashboard-header-height - $dashboard-footer-height-phone);
+    height: calc(100vh - header.$dashboard-header-height - footer.$dashboard-footer-height-phone);
   }
   background-color: rgb(176, 127, 255);
   position: relative;
 
   &__analytics {
-    padding-left: $dashboard-box-info-width;
+    padding-left: box_info.$dashboard-box-info-width;
     @include responsive(desktop-down) {
       padding-left: 0;
     }
@@ -80,8 +80,8 @@ $content-analytics-sections-height: 40px;
       @include responsive(desktop-down) {
         padding-right: 8px;
       }
-      width: calc(100% + $dashboard-box-info-border-radius);
-      transform: translateX(-$dashboard-box-info-border-radius);
+      width: calc(100% + box_info.$dashboard-box-info-border-radius);
+      transform: translateX(-box_info.$dashboard-box-info-border-radius);
       position: sticky;
       top: 0;
       background: white;

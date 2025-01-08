@@ -1,0 +1,86 @@
+@use "@utils/utils";
+
+:root {
+  color-scheme: light dark;
+
+  &[data-mantine-color-scheme="dark"] {
+    --mantine-color-text: #fff !important;
+    --mantine-color-body: #000 !important;
+    --mantine-color-text-dimmed: #c7c7c7;
+  }
+
+  &[data-mantine-color-scheme="light"] {
+    --mantine-color-text: #111111 !important;
+    /* --mantine-color-body: $color-silver !important; */
+    --mantine-color-text-dimmed: #3f3f3f;
+  }
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-family: Satoshi-Regular, Inter, Arial, system-ui, Avenir, Helvetica, sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  font-size: 20px;
+
+  @include utils.responsive(phone) {
+    font-size: 18px;
+  }
+
+  @include utils.responsive(phone-l) {
+    font-size: 16px;
+  }
+}
+
+#root {
+  height: 100%;
+}
+
+body, html {
+  margin: 0;
+  height: 100vh;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  position: relative;
+  min-width: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.sbd-hide {
+  &--phone {
+    @include utils.responsive(phone) {
+      display: none;
+    }
+  }
+
+  &--phone-and-tablet {
+    @include utils.responsive(desktop-down) {
+      display: none;
+    }
+  }
+
+  &--desktop {
+    @include utils.responsive(desktop) {
+      display: none;
+    }
+  }
+
+  &--tablet-and-desktop {
+    @include utils.responsive(phone-up) {
+      display: none;
+    }
+  }
+}
