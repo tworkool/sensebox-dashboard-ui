@@ -1,0 +1,31 @@
+@use "@utils/utils";
+@use "@components/static/dashboard_menu/dashboard_menu";
+
+.dashboard {
+  height: 100%;
+  margin: 0;
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-lg);
+
+  @include utils.orientation(landscape) {
+    margin-left: dashboard_menu.$desktop-width;
+    @include utils.responsive(desktop) {
+      margin-left: dashboard_menu.$desktop-width-expanded;
+    }
+  }
+
+  @include utils.orientation(portrait) {
+    /* margin-bottom: dashboard_menu.$mobile-height; */
+    margin-bottom: 0;
+  }
+
+  &__content {
+    @include utils.orientation(portrait) {
+      &::after {
+        // pseudo element acting as padding to prevent content from being hidden behind the dashboard menu
+        height: dashboard_menu.$mobile-height;
+        content: "";
+        display: block;
+      }
+    }
+  }
+}

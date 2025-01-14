@@ -1,38 +1,84 @@
 import { lazy, Suspense } from 'react';
-/* import { PageSpinner2 } from '@components/shared/spinners/spinners';
+/* import { PageSpinner2 } from '@components/shared/spinners/spinners'; */
 import Footer from '@components/static/footer/footer';
-import Header from '@components/static/header/header'; */
+import Header from '@components/static/header/header';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
 // lazy load pages
-const HomePage = lazy(() => import('@pages/home/home'));
+const Home = lazy(() => import('@pages/home/home'));
 const Impressum = lazy(() => import('@pages/impressum/impressum'));
+const Datenschutz = lazy(() => import('@pages/datenschutz/datenschutz'));
+const Info = lazy(() => import('@pages/info/info'));
+
+// DASHBOARD
+const Dashboard = lazy(() => import('@pages/dashboard/dashboard'));
+const DashboardOverview = lazy(() => import('@pages/dashboard/overview/overview'));
 
 const SharedLayout = () => {
     return <>
-        {/* <Header /> */}
-        <main>
+        <Header />
+        <main className='page-container'>
+          <div className="page-content">
             <Outlet />
+          </div>
         </main>
-        {/* <Footer /> */}
+        <Footer />
     </>;
 };
 
+const DashboardLayout = () => {
+  return <main style={{height: '100%'}}>
+    <Outlet />
+  </main>
+}
+
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "",
         element: <SharedLayout />,
         children: [
-            {
-                path: "/",
-                element: <Suspense fallback={<>LOADING</>}><HomePage /></Suspense>,
-            },
-            {
-                path: "/impressum",
-                element: <Suspense fallback={<>LOADING</>}><Impressum /></Suspense>,
-            }
+          {
+            path: "",
+            element: <Suspense fallback={<>LOADING</>}><Home /></Suspense>,
+          },
+          {
+            path: "/impressum",
+            element: <Suspense fallback={<>LOADING</>}><Impressum /></Suspense>,
+          },
+          {
+            path: "/datenschutz",
+            element: <Suspense fallback={<>LOADING</>}><Datenschutz /></Suspense>,
+          },
+          {
+            path: "/info",
+            element: <Suspense fallback={<>LOADING</>}><Info /></Suspense>,
+        }
         ]
     },
+    {
+      path: "/dashboard",
+      element: <DashboardLayout />,
+      children: [
+        {
+          path: "",
+          element: <Suspense fallback={<>LOADING</>}><Dashboard /></Suspense>,
+          children: [
+            {
+              path: "",
+              element: <Suspense fallback={<>LOADING</>}><DashboardOverview /></Suspense>,
+            },
+            {
+              path: "/dashboard/path1",
+              element: <Suspense fallback={<>LOADING</>}><DashboardOverview /></Suspense>,
+            }
+          ]
+        }
+      ]
+    },
+    {
+      path: "*",
+      element: <div>404</div>
+    }
 ]);
 
 const PageRouter = () => {

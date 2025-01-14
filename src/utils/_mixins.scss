@@ -31,3 +31,54 @@
     @warn "Valid parameters: [phone, phone-up, phone-l], [tablet], [desktop-down, desktop, desktop-4k]";
   }
 }
+
+@mixin orientation($type) {
+  @if $type == landscape {
+    @media (orientation: landscape) {
+      @content;
+    }
+  } @else if $type == portrait {
+    @media (orientation: portrait) {
+      @content;
+    }
+  }
+}
+
+@mixin page-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 26px;
+
+  /* @include responsive(phone) {
+    padding: 0 16px;
+  } */
+}
+
+@mixin grid($size) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($size, 1fr));
+  gap: 1rem;
+
+  @include responsive(phone) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* color: light-dark(
+  var(--mantine-color-black),
+  var(--mantine-color-white)
+); */
+
+@mixin light {
+  [data-mantine-color-scheme="light"] & {
+    @content;
+  }
+}
+
+@mixin dark {
+  [data-mantine-color-scheme="dark"] & {
+    @content;
+  }
+}

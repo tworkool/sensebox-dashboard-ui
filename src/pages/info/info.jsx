@@ -1,13 +1,8 @@
-import React from "react";
-import Header from "../../components/header";
-import "./style.scss";
 import { Text, Title } from "@mantine/core";
-import Footer from "../../components/footer";
+import "./info.scss";
 
-const InfoPage = () => {
-  return <div className="page__container">
-    <Header/>    
-    <div className="page__content">
+const Info = () => {
+  return <>
       <Title order={1}>Info</Title>
       <Text>I hope the dashboard and all other content are easy to understand without explanation. However if you need help, this is the right place! Please read the quick guide for more info.</Text>
       
@@ -33,9 +28,7 @@ const InfoPage = () => {
 
       <Title order={2}>Releases and Changelog</Title>
       <Text>For a detailed Release and Changelog, please visit <a href="https://github.com/tworkool/sensebox.data.dashboard/releases">https://github.com/tworkool/sensebox.data.dashboard/releases</a>.</Text>
-    </div>
-    <Footer/>
-  </div>;
+  </>;
 };
 
-export default InfoPage;
+export default Info;

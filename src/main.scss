@@ -1,18 +1,24 @@
 @use "@utils/utils";
+@use "@components/static/footer/footer";
+@use "@components/static/header/header";
 
 :root {
   color-scheme: light dark;
 
   &[data-mantine-color-scheme="dark"] {
     --mantine-color-text: #fff !important;
-    --mantine-color-body: #000 !important;
-    --mantine-color-text-dimmed: #c7c7c7;
+    --mantine-color-body: #030107 !important;
+
+    --app-color-text-dimmed: #c7c7c7;
+    --app-color-border: #161616;
   }
 
   &[data-mantine-color-scheme="light"] {
     --mantine-color-text: #111111 !important;
     /* --mantine-color-body: $color-silver !important; */
-    --mantine-color-text-dimmed: #3f3f3f;
+
+    --app-color-text-dimmed: #3f3f3f;
+    --app-color-border: #e0e0e0;
   }
 
   font-synthesis: none;
@@ -38,7 +44,8 @@
   height: 100%;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   height: 100vh;
 }
@@ -59,7 +66,7 @@ code {
   width: 100%;
 }
 
-.sbd-hide {
+.hidden {
   &--phone {
     @include utils.responsive(phone) {
       display: none;
@@ -83,4 +90,18 @@ code {
       display: none;
     }
   }
+}
+
+.page-container {
+  max-width: 100vw;
+  min-width: 320px;
+  margin: 0 auto;
+  min-height: calc(100vh - footer.$height - header.$height);
+  background-color: var(--mantine-color-body);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.page-content {
+  @include utils.page-content;
 }

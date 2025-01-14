@@ -23,7 +23,6 @@ createRoot(root!).render(
     <StrictMode>
       <Notifications />
       <App />
-      <h1>TEST</h1>
     </StrictMode>
   </MantineProvider>
 );
