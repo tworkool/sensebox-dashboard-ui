@@ -11,7 +11,12 @@ import '@mantine/notifications/styles.css';
 import "@utils/osemicons.scss";
 import "./main.scss";
 
-const theme = createTheme({});
+const theme = createTheme({
+  "primaryColor": "blue", // TODO: change this in settings
+  "defaultRadius": "sm",
+  "fontFamily": "Satoshi-Regular, Inter, Arial, system-ui, sans-serif",
+  "primaryShade": { light: 6, dark: 8 },
+});
 
 const colorSchemeManager = localStorageColorSchemeManager({
   key: CONSTANTS.THEME_LOCALSTORAGE_KEY,

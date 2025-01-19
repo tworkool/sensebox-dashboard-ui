@@ -7,7 +7,7 @@
 
   &[data-mantine-color-scheme="dark"] {
     --mantine-color-text: #fff !important;
-    --mantine-color-body: #030107 !important;
+    --mantine-color-body: #0a0a0a !important;
 
     --app-color-text-dimmed: #c7c7c7;
     --app-color-border: #161616;
@@ -26,8 +26,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  font-family: Satoshi-Regular, Inter, Arial, system-ui, Avenir, Helvetica, sans-serif;
-  line-height: 1;
+  /* font-family: "Satoshi-Regular", Inter, Arial, system-ui, Avenir, Helvetica, sans-serif; */
+  line-height: 1 !important;
   font-weight: 400;
   font-size: 20px;
 
@@ -56,6 +56,18 @@ html {
   box-sizing: border-box;
   position: relative;
   min-width: 0;
+}
+
+* {
+  &:focus-visible {
+    @include utils.light {
+      outline: 2px dashed black !important;
+    }
+
+    @include utils.dark {
+      outline: 2px dashed white !important;
+    }
+  }
 }
 
 code {

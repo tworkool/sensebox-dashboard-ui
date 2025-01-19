@@ -1,17 +1,17 @@
 @use "@utils/utils";
 
 $mobile-height: 100px;
-$mobile-margin: 14px;
 $desktop-width: 100px;
-$desktop-width-expanded: 300px;
+$desktop-width-expanded: 250px;
 $desktop-padding: 14px;
 
 .dashboard-menu {
   background-color: var(--mantine-color-body);
-  border: 1px solid var(--app-color-border);
   position: fixed;
+  z-index: 9;
 
   @include utils.orientation(landscape) {
+    border-right: 1px solid var(--app-color-border);
     height: 100%;
     width: $desktop-width;
     left: 0;
@@ -24,11 +24,9 @@ $desktop-padding: 14px;
   }
 
   @include utils.orientation(portrait) {
-    height: calc($mobile-height - $mobile-margin);
-    /* width: calc(100% - $mobile-margin * 2); */
-    border-radius: 100px;
-    bottom: $mobile-margin;
-    margin: 0 $mobile-margin;
+    border-top: 1px solid var(--app-color-border);
+    height: $mobile-height;
+    bottom: 0;
     left: 0;
     right: 0;
   }
@@ -37,13 +35,24 @@ $desktop-padding: 14px;
     list-style: none;
     padding: 0;
     margin: 0;
+    @include utils.orientation(portrait) {
+      display: flex;
+      justify-content: space-around;
+    }
 
     li {
-      height: $desktop-width;
       padding: $desktop-padding;
 
       & > div {
         height: 100%;
+      }
+
+      @include utils.orientation(landscape) {
+        height: $desktop-width;
+      }
+      @include utils.orientation(portrait) {
+        height: $mobile-height;
+        width: $mobile-height;
       }
     }
 
@@ -53,7 +62,7 @@ $desktop-padding: 14px;
       text-decoration: none;
     }
 
-    button {
+    & .dashboard-menu-navitem {
       height: 100%;
       width: 100%;
       background-color: var(--mantine-color-body);
@@ -67,8 +76,8 @@ $desktop-padding: 14px;
       color: var(--mantine-color-text);
 
       &--selected {
-        background-color: var(--mantine-color-blue-light-hover);
-        color: var(--mantine-color-blue-light-color);
+        background-color: var(--mantine-color-blue-light);
+        color: var(--mantine-color-blue-text);
       }
 
       &:hover {
