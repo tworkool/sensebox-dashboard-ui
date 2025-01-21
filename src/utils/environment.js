@@ -23,6 +23,7 @@ const CONSTANTS = {
   LAST_SENSEBOX_ID: "LAST_SENSEBOX_ID",
   SENSEBOX_SEARCH_HOTKEY: "K",
   THEME_LOCALSTORAGE_KEY: "sbd-color-theme",
+  SETTINGS_LOCALSTORAGE_KEY: "dashboard-settings",
 };
 
 export {

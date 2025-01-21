@@ -9,7 +9,6 @@ const Dashboard = () => {
   const location = useLocation();
   const dashboardPath = useMemo(() => {
     const path = location.pathname.replace("/dashboard", "");
-    console.log(path);
     return path ? path.split("/").filter(i => i) : null;
   }, [location.pathname]);
 
@@ -20,7 +19,7 @@ const Dashboard = () => {
       {dashboardPath && dashboardPath.map((path, index) => 
         <React.Fragment key={index}>
           <Icon icon="tabler:chevron-right" width="1rem" height="1rem"></Icon>
-          <span>
+          <span style={{ textTransform: "capitalize" }}>
             {path}
           </span>
         </React.Fragment>

@@ -13,6 +13,7 @@
   "dependencies": {
     "@iconify/react": "^5.2.0",
     "@mantine/core": "^7.15.3",
+    "@mantine/form": "^7.16.1",
     "@mantine/hooks": "^7.15.3",
     "@mantine/notifications": "^7.15.3",
     "@mapbox/timespace": "^2.0.4",
