@@ -19,6 +19,7 @@
     "@mapbox/timespace": "^2.0.4",
     "@tanstack/react-query": "^5.62.16",
     "axios": "^1.7.9",
+    "convert": "^5.7.0",
     "dayjs": "^1.11.13",
     "identicon.js": "^2.3.3",
     "react": "^18.3.1",

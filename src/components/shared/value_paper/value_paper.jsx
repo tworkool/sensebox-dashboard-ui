@@ -1,7 +1,7 @@
 import CustomCopyButton from "@components/shared/copy_button/copy_button";
 import "./value_paper.scss";
 import { Group } from "@mantine/core";
-import ValueConverter from "../value_converter/value_converter";
+import ValueConverter from "@components/shared/value_converter/value_converter";
 
 const ValuePaperItem = (props) => {
   const { color, value, unit, subtitle, withCopyButton = false } = props;

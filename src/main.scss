@@ -58,15 +58,15 @@ html {
   min-width: 0;
 }
 
-* {
-  &:focus-visible {
-    @include utils.light {
-      outline: 2px dashed black !important;
-    }
+:focus {
+  outline-offset: 2px;
+  
+  @include utils.light {
+    outline: 2px dashed black;
+  }
 
-    @include utils.dark {
-      outline: 2px dashed white !important;
-    }
+  @include utils.dark {
+    outline: 2px dashed white;
   }
 }
 

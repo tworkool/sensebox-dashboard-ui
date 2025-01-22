@@ -23,7 +23,6 @@ const dateFormats = ["MMM Do YY", "DD/MM/YYYY", "MM/DD/YYYY", "YYYY/MM/DD"];
 
 const DashboardSettings = (props) => {
   const form = useForm({
-    mode: 'uncontrolled',
     initialValues: {...defaultSettings},
   });
 
@@ -57,7 +56,8 @@ const DashboardSettings = (props) => {
 
   const handleExport = () => {
     // save first
-    localStorage.setItem(CONSTANTS.SETTINGS_LOCALSTORAGE_KEY, JSON.stringify(form.values));
+    handleSubmit(form.values);
+    console.log(form.values);
     // then export
     const filename = "senseBox_dashboard_settings.json";
     const jsonStr = JSON.stringify(form.values);
@@ -151,7 +151,7 @@ const DashboardSettings = (props) => {
               suffix="h"
             />
           </Grid.Col>
-          <Grid.Col span={6}>
+          <Grid.Col span={"content"}>
             <TextInput
               {...sharedStyle}
               label="Fallback Null Value"
@@ -165,7 +165,7 @@ const DashboardSettings = (props) => {
 
         <h1>Internationalization</h1>
         <Grid>
-          <Grid.Col span={4}>
+          <Grid.Col span={"content"}>
             <Select
               {...sharedStyle}
               label="Date Format"
@@ -179,7 +179,7 @@ const DashboardSettings = (props) => {
 
         <h1>Style & Theme</h1>
         <Grid>
-          <Grid.Col span={4}>
+          <Grid.Col span={"content"}>
             <ColorInput
               {...sharedStyle}
               label="Primary Dashboard Color"
