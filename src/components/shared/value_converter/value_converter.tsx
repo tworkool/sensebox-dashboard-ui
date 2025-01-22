@@ -1,4 +1,4 @@
-import { Menu } from '@mantine/core';
+import { Menu, NumberFormatter } from '@mantine/core';
 import React, { useState, useEffect, useMemo } from 'react';
 import convert, { getMeasureKind, Unit } from "convert";
 
@@ -144,7 +144,7 @@ const ValueConverter = (props: ValueConverterProps) => {
     <Menu offset={5} withArrow>
       <Menu.Target>
         <div className="value-converter">
-          <span>{convertedValue}</span>
+          <NumberFormatter value={convertedValue} decimalScale={2} thousandSeparator />
           <span>{updatedUnit}</span>
         </div>
       </Menu.Target>

@@ -196,9 +196,9 @@ const DashboardSettings = (props) => {
         <Space h="xl" />
 
         <Group gap="xs">
-          <Button variant="subtle" onClick={handleRestore}>Restore Defaults</Button>
-          <Button variant="subtle" onClick={handleExport}>Export</Button>
-          <Button variant="subtle" onClick={handleImport}>Import</Button>
+          <Button variant="light" onClick={handleRestore}>Restore Defaults</Button>
+          <Button variant="light" onClick={handleExport}>Export</Button>
+          <Button variant="light" onClick={handleImport}>Import</Button>
           <Button ml="auto" type="submit">Save</Button>
         </Group>
       </form>

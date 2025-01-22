@@ -1,4 +1,4 @@
-import CustomCopyButton from "@components/shared/copy_button/copy_button";
+import CustomCopyButton from "@components/shared/custom_copy_button/custom_copy_button";
 import "./value_paper.scss";
 import { Group } from "@mantine/core";
 import ValueConverter from "@components/shared/value_converter/value_converter";
