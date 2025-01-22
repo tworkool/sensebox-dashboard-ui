@@ -18,9 +18,9 @@ const DashboardOverview = (props) => {
         </ValuePaper.Bare>
 
         <ValuePaper.Grid>
-          <ValuePaper.Item color="green" value={1000} unit="kg" subtitle="Temperatur" />
-          <ValuePaper.Item color="blue" value={123} unit="g" subtitle="Druck" />
-          <ValuePaper.Item color="red" value={22} unit="kg" subtitle="Temperatur" />
+          <ValuePaper.Item color="green" value={1000} unit="N" subtitle="Druck" />
+          <ValuePaper.Item color="blue" value={12} unit="gal" subtitle="Zeit" />
+          <ValuePaper.Item color="red" value={22} unit="mmm" subtitle="Temperatur" />
         </ValuePaper.Grid>
       </Stack>
     </div>

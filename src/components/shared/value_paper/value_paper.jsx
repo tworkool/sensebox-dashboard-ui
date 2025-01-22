@@ -11,12 +11,6 @@ const ValuePaperItem = (props) => {
       {/* <span>{value}</span>
       <span>{unit}</span> */}
       <ValueConverter value={value} unit={unit}>
-        <ValueConverter.Value>
-          <span />
-        </ValueConverter.Value>
-        <ValueConverter.Unit>
-          <span />
-        </ValueConverter.Unit>
       </ValueConverter>
     </div>
   </ValuePaperBare>;
