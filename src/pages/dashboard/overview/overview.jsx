@@ -1,70 +1,89 @@
-import { ActionIcon, Avatar, Badge, Chip, Group, Space, Stack, Text, Title, Tooltip } from "@mantine/core";
+import { ActionIcon, Avatar, Badge, Button, Chip, Group, Kbd, Space, Stack, Switch, Text, Title, Tooltip } from "@mantine/core";
 import ValuePaper from "@components/shared/value_paper/value_paper";
 import CustomCopyButton from "@components/shared/custom_copy_button/custom_copy_button";
 import { Icon } from "@iconify/react";
+import { useHotkeys } from "@mantine/hooks";
+import IdenticonAvatar from "@components/shared/identicon_avatar/identicon_avatar";
 
 const DashboardOverview = (props) => {
+  useHotkeys([["mod+K", () => {console.log("SEARCH");}]]);
+
   return (
     <div>
-      <Stack>
-        <Chip.Group>
-          <Group gap="xs">
-            <Chip value="1" variant="light">closest to you</Chip>
-            <Chip value="2" variant="light">pinned</Chip>
-            <Chip value="3" variant="light">search</Chip>
-          </Group>
-        </Chip.Group>
-
-        <ValuePaper.Bare>
-          <Group style={{top: "1rem", right: "1rem", position: "absolute"}} gap="xs">
-            <Tooltip label="open in OSM" withArrow>
-              <ActionIcon variant="transparent" radius="xl" size="md">
-                <Icon icon="tabler:world-share" width="1rem" height="1rem" />
-              </ActionIcon>
-            </Tooltip>
-            <Tooltip label="open website: https://www.viras.de" withArrow>
-              <ActionIcon variant="transparent" radius="xl" size="md">
-                <Icon icon="tabler:map-share" width="1rem" height="1rem" />
-              </ActionIcon>
-            </Tooltip>
-            <Tooltip label="pin" withArrow>
-              <ActionIcon variant="light" radius="xl" size="md">
-                <Icon icon="tabler:pin" width="1rem" height="1rem" />
-              </ActionIcon>
-            </Tooltip>
+      <Stack gap="xl">
+        <Stack gap="sm">
+          <Group>
+            <Chip.Group>
+              <Group gap="xs">
+                <Chip value="1" variant="outline">closest to you</Chip>
+                <Chip value="2" variant="outline">pinned</Chip>
+                <Chip value="3" variant="outline">search</Chip>
+              </Group>
+            </Chip.Group>
+            <Button ml="auto" variant="subtle" size="xs" radius="xl" leftSection={<Icon icon="line-md:search-twotone" width="1rem" height="1rem" />}>
+              <Group gap="2px">
+                <Kbd size="xs">Ctrl</Kbd>
+                <span style={{ margin: "0 5px" }}>+</span>
+                <Kbd size="xs">K</Kbd>
+              </Group>
+            </Button>
           </Group>
 
-          <Group align="flex-start">
-            <Group align="flex-start">
-              <Avatar size="xl" radius="xs">MK</Avatar>
-              <Stack gap="0.2rem">
-                <Group gap="xs">
-                  <Text c="dimmed" size="xs">5bf8373386f11b001aae627e</Text>
-                  {/* <CustomCopyButton value="5bf8373386f11b001aae627e" /> */}
-                </Group>
-                <Title order={2} m={0}>Tworkool</Title>
-                <Group gap="xs">
-                  <Badge size="sm" radius="sm" variant="light">active</Badge>
-                  <Badge size="sm" radius="sm" variant="light">indoor</Badge>
-                  <Badge size="sm" radius="sm" variant="light">7 sensors</Badge>
-                  <Badge size="sm" radius="sm" variant="light">2 years ago</Badge>
-                </Group>
-              </Stack>
+          <ValuePaper.Bare>
+            <Group style={{top: "1rem", right: "1rem", position: "absolute"}} gap="xs">
+              <Tooltip label="open in OSM" withArrow>
+                <ActionIcon variant="transparent" radius="xl" size="md">
+                  <Icon icon="tabler:world-share" width="1rem" height="1rem" />
+                </ActionIcon>
+              </Tooltip>
+              <Tooltip label="open website: https://www.viras.de" withArrow>
+                <ActionIcon variant="transparent" radius="xl" size="md">
+                  <Icon icon="tabler:map-share" width="1rem" height="1rem" />
+                </ActionIcon>
+              </Tooltip>
+              <Tooltip label="pin" withArrow>
+                <ActionIcon variant="light" radius="xl" size="md">
+                  <Icon icon="tabler:pin" width="1rem" height="1rem" />
+                </ActionIcon>
+              </Tooltip>
             </Group>
 
-            <Space />
+            <Group align="flex-start">
+              <Group align="flex-start">
+                <IdenticonAvatar id="5bf8373386f11b001aae627e" size="xl" radius="xs">MK</IdenticonAvatar>
+                <Stack gap="0.2rem">
+                  <Group gap="xs">
+                    <Text m={0} fw={600}>Tworkool</Text>
+                    <Text c="dimmed" size="xs">5bf8373386f11b001aae627e</Text>
+                    {/* <CustomCopyButton value="5bf8373386f11b001aae627e" /> */}
+                  </Group>
+                  <Group gap="xs">
+                    <Badge size="sm" radius="sm" variant="light">active</Badge>
+                    <Badge size="sm" radius="sm" variant="light">indoor</Badge>
+                    <Badge size="sm" radius="sm" variant="light">7 sensors</Badge>
+                    <Badge size="sm" radius="sm" variant="light">2 years ago</Badge>
+                  </Group>
+                </Stack>
+              </Group>
 
-            <Text>This is a sample description for the following sensebox using text that just comes tom my mind when thinking about this</Text>
+              <Space />
 
-            <iframe src="https://maps.google.com/maps?q=52.45608,13.628301&hl=en&z=14&output=embed" style={{border: "none", width: "100%"}}></iframe>
-          </Group>
-        </ValuePaper.Bare>
+              <Group align="flex-start">
+                <iframe flex={1} src="https://maps.google.com/maps?q=52.45608,13.628301&hl=en&z=14&output=embed"></iframe>
+                <Text flex={1}>This is a sample description for the following sensebox using text that just comes tom my mind when thinking about this</Text>
+              </Group>
+            </Group>
+          </ValuePaper.Bare>
+        </Stack>
 
-        <ValuePaper.Grid>
-          <ValuePaper.Item color="green" value={1000} unit="N" subtitle="Druck" />
-          <ValuePaper.Item color="blue" value={12} unit="gal" subtitle="Zeit" />
-          <ValuePaper.Item color="red" value={22} unit="mmm" subtitle="Temperatur" />
-        </ValuePaper.Grid>
+        <Stack gap="sm">
+          <Switch defaultChecked onLabel="ON" offLabel="OFF" label="automatic updates" />
+          <ValuePaper.Grid>
+            <ValuePaper.Item color="green" value={1000} unit="N" subtitle="Druck" />
+            <ValuePaper.Item color="blue" value={12} unit="gal" subtitle="Zeit" />
+            <ValuePaper.Item color="red" value={22} unit="mmm" subtitle="Temperatur" />
+          </ValuePaper.Grid>
+        </Stack>
       </Stack>
     </div>
   );

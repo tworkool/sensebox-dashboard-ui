@@ -50,6 +50,11 @@ html {
   height: 100vh;
 }
 
+iframe {
+  border: none;
+  border-radius: var(--mantine-radius-md);
+}
+
 *,
 *::after,
 *::before {
