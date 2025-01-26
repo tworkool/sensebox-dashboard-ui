@@ -12,7 +12,22 @@ import "@utils/osemicons.scss";
 import "./main.scss";
 
 const theme = createTheme({
-  "primaryColor": "blue", // TODO: change this in settings
+  "colors": {
+    "dynamicPrimary": [ // JUST A PLACEHOLDER
+      "#000",
+      "#000",
+      "#000",
+      "#000",
+      "#000",
+      "#000",
+      "#000",
+      "#000",
+      "#000",
+      "#000",
+      "#000",
+    ],
+  },
+  "primaryColor": "green", // TODO: change this in settings
   "defaultRadius": "sm",
   "fontFamily": "Satoshi-Regular, Inter, Arial, system-ui, sans-serif",
   "primaryShade": { light: 6, dark: 8 },

@@ -15,9 +15,9 @@ const DashboardOverview = (props) => {
           <Group>
             <Chip.Group>
               <Group gap="xs">
-                <Chip value="1" variant="outline">closest to you</Chip>
-                <Chip value="2" variant="outline">pinned</Chip>
-                <Chip value="3" variant="outline">search</Chip>
+                <Chip value="1" variant="filled">closest to you</Chip>
+                <Chip value="2" variant="filled">pinned</Chip>
+                <Chip value="3" variant="filled">search</Chip>
               </Group>
             </Chip.Group>
             <Button ml="auto" variant="subtle" size="xs" radius="xl" leftSection={<Icon icon="line-md:search-twotone" width="1rem" height="1rem" />}>
@@ -77,7 +77,20 @@ const DashboardOverview = (props) => {
         </Stack>
 
         <Stack gap="sm">
-          <Switch defaultChecked onLabel="ON" offLabel="OFF" label="automatic updates" />
+          <Group align="baseline">
+            <div style={{flex: 1}}>
+              <Chip.Group>
+                <Group gap="xs">
+                  <Chip value="1" variant="filled">Temperatur</Chip>
+                  <Chip value="2" variant="filled">Zeit</Chip>
+                  <Chip value="3" variant="filled">Druck</Chip>
+                  <Chip value="4" variant="filled">Geschwindigkeit</Chip>
+                  <Chip value="5" variant="filled">UV-Intensität</Chip>
+                </Group>
+              </Chip.Group>
+            </div>
+            <Switch style={{width: "max-content"}} defaultChecked onLabel="ON" offLabel="OFF" label="automatic updates" />
+          </Group>
           <ValuePaper.Grid>
             <ValuePaper.Item color="green" value={1000} unit="N" subtitle="Druck" />
             <ValuePaper.Item color="blue" value={12} unit="gal" subtitle="Zeit" />

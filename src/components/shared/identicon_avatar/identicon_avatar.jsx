@@ -6,7 +6,6 @@ import { useMantineColorScheme } from '@mantine/core';
 const IdenticonAvatar = (props) => {
   const { id, ...rest} = props;
   const { colorScheme } = useMantineColorScheme();
-  console.log(colorScheme);
   const bg = colorScheme === "light" ? [230, 230, 230, 255] : [20, 20, 20, 255];
 
   const identiconImage = useMemo(() => {

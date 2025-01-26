@@ -126,7 +126,6 @@ const ValueConverter = (props: ValueConverterProps) => {
   }, [unit]);
 
   const convertedValue = useMemo(() => {
-    console.log("TEST",getMeasureKind(originalUnit));
     if (!getMeasureKind(originalUnit)) return value;
     return convert(value, originalUnit).to(updatedUnit);
   }, [value, originalUnit, updatedUnit]);

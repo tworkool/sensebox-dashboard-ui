@@ -1,33 +1,23 @@
 import { Button, ColorInput, Grid, Group, NumberInput, Select, Space, TextInput } from "@mantine/core";
 import { useForm } from '@mantine/form';
-import { useLayoutEffect } from "react";
-import { CONSTANTS } from "@utils/environment";
+import { useEffect, useLayoutEffect } from "react";
 import { notifications } from "@mantine/notifications";
+import { useSettingsStore, defaultSettings } from "@stores";
 
 const sharedStyle = {
   variant: "filled",
 };
 
-// Default settings for the dashboard
-// all settings MUST be present in this object and have a default value
-const defaultSettings = {
-  automaticUpdateInterval: 60,
-  boxInactiveAfter: 24,
-  sensorInactiveAfter: 12,
-  fallbackNullValue: "<EMPTY>",
-  primaryDashboardColor: "#9038e8",
-  dateFormat: "MMM Do YY",
-};
-
 const dateFormats = ["MMM Do YY", "DD/MM/YYYY", "MM/DD/YYYY", "YYYY/MM/DD"];
 
 const DashboardSettings = (props) => {
+  const { current, set, restore } = useSettingsStore();
   const form = useForm({
     initialValues: {...defaultSettings},
   });
 
   const handleSubmit = (values) => {
-    localStorage.setItem(CONSTANTS.SETTINGS_LOCALSTORAGE_KEY, JSON.stringify(values));
+    set(values);
   };
 
   const handleImport = () => {
@@ -40,7 +30,7 @@ const DashboardSettings = (props) => {
       reader.onload = (event) => {
         try {
           const settings = JSON.parse(event.target.result);
-          form.setValues(settings);
+          set(settings);
         } catch (error) {
           notifications.show({
             title: 'Error Importing Settings',
@@ -56,8 +46,7 @@ const DashboardSettings = (props) => {
 
   const handleExport = () => {
     // save first
-    handleSubmit(form.values);
-    console.log(form.values);
+    set(form.values);
     // then export
     const filename = "senseBox_dashboard_settings.json";
     const jsonStr = JSON.stringify(form.values);
@@ -75,34 +64,13 @@ const DashboardSettings = (props) => {
   };
 
   const handleRestore = () => {
-    form.setValues(defaultSettings);
-    localStorage.setItem(CONSTANTS.SETTINGS_LOCALSTORAGE_KEY, JSON.stringify(defaultSettings));
+    restore(defaultSettings);
   };
 
   // load settings from local storage
   useLayoutEffect(() => {
-    const settings = localStorage.getItem(CONSTANTS.SETTINGS_LOCALSTORAGE_KEY);
-    if (settings) {
-      try {
-        const parsedSettings = JSON.parse(settings);
-        form.setValues(parsedSettings);
-      } catch (error) {
-        notifications.show({
-          title: 'Error Loading Settings',
-          message: 'Could not load settings from local storage. Using default settings.',
-          color: 'red',
-        });
-        localStorage.setItem(CONSTANTS.SETTINGS_LOCALSTORAGE_KEY, JSON.stringify(defaultSettings));
-      }
-    } else {
-      notifications.show({
-        title: 'Settings Not Loaded',
-        message: 'Could not load settings from local storage. Using default settings.',
-        color: 'red',
-      });
-      localStorage.setItem(CONSTANTS.SETTINGS_LOCALSTORAGE_KEY, JSON.stringify(defaultSettings));
-    }
-  }, []);
+    form.setValues(current);
+  }, [current]);
 
   return (
     <>
@@ -199,7 +167,7 @@ const DashboardSettings = (props) => {
           <Button variant="light" onClick={handleRestore}>Restore Defaults</Button>
           <Button variant="light" onClick={handleExport}>Export</Button>
           <Button variant="light" onClick={handleImport}>Import</Button>
-          <Button ml="auto" type="submit">Save</Button>
+          <Button variant="filled" ml="auto" type="submit">Save</Button>
         </Group>
       </form>
     </>
