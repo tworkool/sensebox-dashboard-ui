@@ -48,11 +48,11 @@ const createStore = <T>(defaultState: T, localStorageKey: string) => create<ICre
       return {current: defaultState};
     }
     })(),
-    set: (newState: T) => {
+    "set": (newState: T) => {
       set({ current: newState });
       localStorage.setItem(localStorageKey, JSON.stringify(newState));
     },
-    restore: () => {
+    "restore": () => {
       set({ current: defaultState });
       localStorage.setItem(localStorageKey, JSON.stringify(defaultState));
     },

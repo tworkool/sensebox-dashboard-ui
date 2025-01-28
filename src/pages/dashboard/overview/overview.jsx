@@ -23,7 +23,6 @@ const DashboardOverview = (props) => {
             <Button ml="auto" variant="subtle" size="xs" radius="xl" leftSection={<Icon icon="line-md:search-twotone" width="1rem" height="1rem" />}>
               <Group gap="2px">
                 <Kbd size="xs">Ctrl</Kbd>
-                <span style={{ margin: "0 5px" }}>+</span>
                 <Kbd size="xs">K</Kbd>
               </Group>
             </Button>

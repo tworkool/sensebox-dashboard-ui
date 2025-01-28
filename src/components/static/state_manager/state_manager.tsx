@@ -1,30 +1,33 @@
 import { useSettingsStore } from "@stores";
 import { useLayoutEffect } from "react";
-import { useMantineTheme } from "@mantine/core";
+import { useThemeStore } from "@components/static/theme_provider/theme_provider";
 
 const StateManager = () => {
   const { current: currentSettings } = useSettingsStore();
-  const theme = useMantineTheme();
+  const { updateTheme } = useThemeStore();
 
   useLayoutEffect(() => {
     console.log("PRIMARY COLOR");
     /* document.documentElement.style.setProperty('--primary-color', currentSettings.primaryDashboardColor); */
-    theme.colors["dynamicPrimary"] = [
-      currentSettings.primaryDashboardColor, // use the same color for all shades for simplicity
-      currentSettings.primaryDashboardColor,
-      currentSettings.primaryDashboardColor,
-      currentSettings.primaryDashboardColor,
-      currentSettings.primaryDashboardColor,
-      currentSettings.primaryDashboardColor,
-      currentSettings.primaryDashboardColor,
-      currentSettings.primaryDashboardColor,
-      currentSettings.primaryDashboardColor,
-      currentSettings.primaryDashboardColor,
-      currentSettings.primaryDashboardColor,
-    ];
-    theme.primaryColor = "dynamicPrimary";
-    console.log(theme);
-  }, [currentSettings, theme]);
+    updateTheme({
+      colors: {
+        "dynamicPrimary": [
+          currentSettings.primaryDashboardColor, // use the same color for all shades for simplicity
+          currentSettings.primaryDashboardColor,
+          currentSettings.primaryDashboardColor,
+          currentSettings.primaryDashboardColor,
+          currentSettings.primaryDashboardColor,
+          currentSettings.primaryDashboardColor,
+          currentSettings.primaryDashboardColor,
+          currentSettings.primaryDashboardColor,
+          currentSettings.primaryDashboardColor,
+          currentSettings.primaryDashboardColor,
+          currentSettings.primaryDashboardColor,
+        ]
+      },
+      primaryColor: "dynamicPrimary",
+    });
+  }, [currentSettings, updateTheme]);
 
   return null;
 };

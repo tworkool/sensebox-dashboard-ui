@@ -77,12 +77,12 @@ $desktop-padding: 14px;
       color: var(--mantine-color-text);
 
       &--selected {
-        background-color: var(--mantine-color-blue-light);
-        color: var(--mantine-color-blue-text);
+        background-color: var(--mantine-color-dynamicPrimary-light);
+        color: var(--mantine-color-dynamicPrimary-text);
       }
 
       &:hover {
-        background-color: var(--mantine-color-blue-light-hover);
+        background-color: var(--mantine-color-dynamicPrimary-light-hover);
       }
 
       & span {
