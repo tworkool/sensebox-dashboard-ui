@@ -5,6 +5,7 @@ const ENVIRONMENT = {
   CONSOLE_LOGS: import.meta.env.CONSOLE_LOGS == "True" ? true : false,
   POSTHOG_API_TOKEN: import.meta.env.POSTHOG_API_TOKEN ?? "",
   POSTHOG_API_HOST: import.meta.env.POSTHOG_API_HOST ?? "",
+  OSEM_API_URL: import.meta.env.OSEM_API_URL ?? "https://api.opensensemap.org/",
 };
 
 const CONSTANTS = {

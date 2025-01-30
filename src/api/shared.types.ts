@@ -1,0 +1,55 @@
+export type RFC3339Date = string;
+
+export interface OSEM_Location {
+  coordinates: [number, number];
+  timestamp: RFC3339Date;
+  type: string;
+}
+
+export type OSEM_Icon =
+  | 'osem-radioactive'
+  | 'osem-particulate-matter'
+  | 'osem-moisture'
+  | 'osem-temperature-celsius'
+  | 'osem-temperature-fahrenheit'
+  | 'osem-drops'
+  | 'osem-thermometer'
+  | 'osem-windspeed'
+  | 'osem-sprinkles'
+  | 'osem-brightness'
+  | 'osem-barometer'
+  | 'osem-humidity'
+  | 'osem-not-available'
+  | 'osem-gauge'
+  | 'osem-umbrella'
+  | 'osem-clock'
+  | 'osem-shock'
+  | 'osem-fire'
+  | 'osem-check'
+  | 'osem-close'
+  | 'osem-remove'
+  | 'osem-times'
+  | 'osem-signal'
+  | 'osem-cog'
+  | 'osem-gear'
+  | 'osem-trash-o'
+  | 'osem-download'
+  | 'osem-volume-up'
+  | 'osem-register'
+  | 'osem-map-marker'
+  | 'osem-plus-circle'
+  | 'osem-check-circle'
+  | 'osem-info-circle'
+  | 'osem-twitter-square'
+  | 'osem-facebook-square'
+  | 'osem-github'
+  | 'osem-globe'
+  | 'osem-filter'
+  | 'osem-cloud'
+  | 'osem-dashboard'
+  | 'osem-tachometer'
+  | 'osem-spinner'
+  | 'osem-microphone'
+  | 'osem-wifi'
+  | 'osem-battery'
+  | 'osem-co2';

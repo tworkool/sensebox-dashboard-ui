@@ -3,6 +3,12 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import ThemeProvider from '@components/static/theme_provider/theme_provider';
 import App from "./App";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 // styles
 import '@mantine/core/styles.css';
@@ -15,7 +21,9 @@ createRoot(root!).render(
   <ThemeProvider>
     <StrictMode>
       <Notifications />
-      <App />
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
     </StrictMode>
   </ThemeProvider>
 );
