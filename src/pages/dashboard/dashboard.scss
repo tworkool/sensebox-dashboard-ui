@@ -13,7 +13,7 @@
   }
 
   &__content {
-    padding: var(--mantine-spacing-sm) var(--mantine-spacing-lg);
+    padding: var(--mantine-spacing-sm) var(--mantine-spacing-lg) var(--mantine-spacing-xl) var(--mantine-spacing-lg);
     @include utils.orientation(portrait) {
       &::after {
         content: "";

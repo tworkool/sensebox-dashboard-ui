@@ -2,6 +2,15 @@
 
 $transition-duration: 0.3s;
 
+@keyframes update-value-animation {
+  0% {
+    color: var(--mantine-color-dynamicPrimary-text);
+  }
+  100% {
+    color: inherit;
+  }
+}
+
 .value-paper {
   border-radius: var(--mantine-radius-md);
   transition: background-color $transition-duration ease;
@@ -36,6 +45,12 @@ $transition-duration: 0.3s;
       font-family: "Satoshi-Regular";
       font-size: 0.5em;
       margin-left: 0.2em;
+    }
+
+    &--refresh {
+      &, .value-paper__value--refresh span:first-of-type {
+        animation: update-value-animation 2s ease;
+      }
     }
   }
 

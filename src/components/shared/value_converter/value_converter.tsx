@@ -1,5 +1,5 @@
-import { Menu, NumberFormatter } from '@mantine/core';
-import React, { useState, useEffect, useMemo } from 'react';
+import { Menu, NumberFormatter } from "@mantine/core";
+import React, { useState, useEffect, useMemo } from "react";
 import convert, { getMeasureKind, Unit } from "convert";
 
 // INTERNAL MAPPING FOR MEASURE KINDS IN CONVERT LIBRARY
@@ -20,89 +20,89 @@ enum MeasureKind {
 
 function getImportantConversionUnits(measureKind: MeasureKind): { shortName: string, fullName: string }[] {
   switch (measureKind) {
-    case MeasureKind.Angle:
-      return [
-        { shortName: 'deg', fullName: 'degrees' },
-        { shortName: 'rad', fullName: 'radians' },
-        { shortName: 'grad', fullName: 'gradians' }
-      ];
-    case MeasureKind.Area:
-      return [
-        { shortName: 'm²', fullName: 'square meters' },
-        { shortName: 'ha', fullName: 'hectares' },
-        { shortName: 'ac', fullName: 'acres' },
-        { shortName: 'ft²', fullName: 'square feet' }
-      ];
-    case MeasureKind.Data:
-      return [
-        { shortName: 'B', fullName: 'bytes' },
-        { shortName: 'KB', fullName: 'kilobytes' },
-        { shortName: 'MB', fullName: 'megabytes' },
-        { shortName: 'GB', fullName: 'gigabytes' },
-        { shortName: 'TB', fullName: 'terabytes' }
-      ];
-    case MeasureKind.Energy:
-      return [
-        { shortName: 'J', fullName: 'joules' },
-        { shortName: 'cal', fullName: 'calories' },
-        { shortName: 'kWh', fullName: 'kilowatt-hours' }
-      ];
-    case MeasureKind.Force:
-      return [
-        { shortName: 'N', fullName: 'newtons' },
-        { shortName: 'lbf', fullName: 'pounds-force' },
-        { shortName: 'kgf', fullName: 'kilograms-force' }
-      ];
-    case MeasureKind.Length:
-      return [
-        { shortName: 'm', fullName: 'meters' },
-        { shortName: 'km', fullName: 'kilometers' },
-        { shortName: 'mi', fullName: 'miles' },
-        { shortName: 'ft', fullName: 'feet' },
-        { shortName: 'in', fullName: 'inches' }
-      ];
-    case MeasureKind.Mass:
-      return [
-        { shortName: 'g', fullName: 'grams' },
-        { shortName: 'kg', fullName: 'kilograms' },
-        { shortName: 'lb', fullName: 'pounds' },
-        { shortName: 'oz', fullName: 'ounces' }
-      ];
-    case MeasureKind.Power:
-      return [
-        { shortName: 'W', fullName: 'watts' },
-        { shortName: 'kW', fullName: 'kilowatts' },
-        { shortName: 'hp', fullName: 'horsepower' }
-      ];
-    case MeasureKind.Pressure:
-      return [
-        { shortName: 'Pa', fullName: 'pascals' },
-        { shortName: 'bar', fullName: 'bars' },
-        { shortName: 'psi', fullName: 'pounds per square inch' },
-        { shortName: 'atm', fullName: 'atmospheres' }
-      ];
-    case MeasureKind.Temperature:
-      return [
-        { shortName: 'C', fullName: 'celsius' },
-        { shortName: 'F', fullName: 'fahrenheit' },
-        { shortName: 'K', fullName: 'kelvin' }
-      ];
-    case MeasureKind.Time:
-      return [
-        { shortName: 's', fullName: 'seconds' },
-        { shortName: 'min', fullName: 'minutes' },
-        { shortName: 'h', fullName: 'hours' },
-        { shortName: 'd', fullName: 'days' }
-      ];
-    case MeasureKind.Volume:
-      return [
-        { shortName: 'L', fullName: 'liters' },
-        { shortName: 'mL', fullName: 'milliliters' },
-        { shortName: 'm³', fullName: 'cubic meters' },
-        { shortName: 'gal', fullName: 'gallons' }
-      ];
-    default:
-      return [];
+  case MeasureKind.Angle:
+    return [
+      { shortName: "deg", fullName: "degrees" },
+      { shortName: "rad", fullName: "radians" },
+      { shortName: "grad", fullName: "gradians" }
+    ];
+  case MeasureKind.Area:
+    return [
+      { shortName: "m²", fullName: "square meters" },
+      { shortName: "ha", fullName: "hectares" },
+      { shortName: "ac", fullName: "acres" },
+      { shortName: "ft²", fullName: "square feet" }
+    ];
+  case MeasureKind.Data:
+    return [
+      { shortName: "B", fullName: "bytes" },
+      { shortName: "KB", fullName: "kilobytes" },
+      { shortName: "MB", fullName: "megabytes" },
+      { shortName: "GB", fullName: "gigabytes" },
+      { shortName: "TB", fullName: "terabytes" }
+    ];
+  case MeasureKind.Energy:
+    return [
+      { shortName: "J", fullName: "joules" },
+      { shortName: "cal", fullName: "calories" },
+      { shortName: "kWh", fullName: "kilowatt-hours" }
+    ];
+  case MeasureKind.Force:
+    return [
+      { shortName: "N", fullName: "newtons" },
+      { shortName: "lbf", fullName: "pounds-force" },
+      { shortName: "kgf", fullName: "kilograms-force" }
+    ];
+  case MeasureKind.Length:
+    return [
+      { shortName: "m", fullName: "meters" },
+      { shortName: "km", fullName: "kilometers" },
+      { shortName: "mi", fullName: "miles" },
+      { shortName: "ft", fullName: "feet" },
+      { shortName: "in", fullName: "inches" }
+    ];
+  case MeasureKind.Mass:
+    return [
+      { shortName: "g", fullName: "grams" },
+      { shortName: "kg", fullName: "kilograms" },
+      { shortName: "lb", fullName: "pounds" },
+      { shortName: "oz", fullName: "ounces" }
+    ];
+  case MeasureKind.Power:
+    return [
+      { shortName: "W", fullName: "watts" },
+      { shortName: "kW", fullName: "kilowatts" },
+      { shortName: "hp", fullName: "horsepower" }
+    ];
+  case MeasureKind.Pressure:
+    return [
+      { shortName: "Pa", fullName: "pascals" },
+      { shortName: "bar", fullName: "bars" },
+      { shortName: "psi", fullName: "pounds per square inch" },
+      { shortName: "atm", fullName: "atmospheres" }
+    ];
+  case MeasureKind.Temperature:
+    return [
+      { shortName: "C", fullName: "celsius" },
+      { shortName: "F", fullName: "fahrenheit" },
+      { shortName: "K", fullName: "kelvin" }
+    ];
+  case MeasureKind.Time:
+    return [
+      { shortName: "s", fullName: "seconds" },
+      { shortName: "min", fullName: "minutes" },
+      { shortName: "h", fullName: "hours" },
+      { shortName: "d", fullName: "days" }
+    ];
+  case MeasureKind.Volume:
+    return [
+      { shortName: "L", fullName: "liters" },
+      { shortName: "mL", fullName: "milliliters" },
+      { shortName: "m³", fullName: "cubic meters" },
+      { shortName: "gal", fullName: "gallons" }
+    ];
+  default:
+    return [];
   }
 }
 
@@ -132,6 +132,10 @@ const ValueConverter = (props: ValueConverterProps) => {
 
   const availableConversionUnits = useMemo(() => {
     try {
+      /* let handledUnit = originalUnit;
+      if (originalUnit as string === "°C") {
+        handledUnit = "C";
+      } */
       return getImportantConversionUnits(getMeasureKind(originalUnit));
     } catch (e) {
       console.error(e);
