@@ -1,11 +1,10 @@
 const ENVIRONMENT = {
-  INFO: import.meta.env.NODE_ENV,
+  INFO: import.meta.env.MODE,
   MAPBOX_PUBLIC_KEY: import.meta.env.MAPBOX_PUBLIC_KEY,
-  MOCK_API_DATA: import.meta.env.MOCK_API_DATA == "True" ? true : false,
-  CONSOLE_LOGS: import.meta.env.CONSOLE_LOGS == "True" ? true : false,
+  MOCK_API_DATA: import.meta.env.VITE_MOCK_API_DATA == "True" ? true : false,
+  CONSOLE_LOGS: import.meta.env.VITE_CONSOLE_LOGS == "True" ? true : false,
   POSTHOG_API_TOKEN: import.meta.env.POSTHOG_API_TOKEN ?? "",
-  POSTHOG_API_HOST: import.meta.env.POSTHOG_API_HOST ?? "",
-  OSEM_API_URL: import.meta.env.OSEM_API_URL ?? "https://api.opensensemap.org/",
+  POSTHOG_API_HOST: import.meta.env.VITE_POSTHOG_API_HOST ?? "",
 };
 
 const CONSTANTS = {
@@ -25,7 +24,14 @@ const CONSTANTS = {
   SENSEBOX_SEARCH_HOTKEY: "K",
   THEME_LOCALSTORAGE_KEY: "sbd-color-theme",
   SETTINGS_LOCALSTORAGE_KEY: "dashboard-settings",
+  OSEM_API_URL: "https://api.opensensemap.org/",
+  OSEM_MOCK_API_URL: "http://localhost:3001/",
 };
+
+if (ENVIRONMENT.MOCK_API_DATA) {
+  console.log(`[MOCK API] Redirecting to mock API '${CONSTANTS.OSEM_MOCK_API_URL}'`);
+  CONSTANTS.OSEM_API_URL = CONSTANTS.OSEM_MOCK_API_URL;  // Redirect to the mock URL
+}
 
 export {
   CONSTANTS,

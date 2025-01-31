@@ -7,7 +7,6 @@ const StateManager = () => {
   const { updateTheme } = useThemeStore();
 
   useLayoutEffect(() => {
-    console.log("PRIMARY COLOR");
     /* document.documentElement.style.setProperty('--primary-color', currentSettings.primaryDashboardColor); */
     updateTheme({
       colors: {
