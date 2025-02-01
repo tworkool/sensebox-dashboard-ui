@@ -2,7 +2,7 @@ import CustomCopyButton from "@components/shared/custom_copy_button/custom_copy_
 import "./value_paper.scss";
 import { Group } from "@mantine/core";
 import ValueConverter from "@components/shared/value_converter/value_converter";
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 
 const ValuePaperItem = (props) => {
   const { color, value, unit, subtitle, withCopyButton = false } = props;
@@ -10,7 +10,6 @@ const ValuePaperItem = (props) => {
 
   useEffect(() => {
     if (valueRef.current) {
-      console.log(valueRef.current.classList);
       valueRef.current.classList.remove("value-paper__value--refresh");
       valueRef.current.classList.add("value-paper__value--refresh");
     }
@@ -45,8 +44,8 @@ const ValuePaperBare = (props) => {
 };
 
 const ValuePaper = {
-  Bare: ValuePaperBare,
-  Item: ValuePaperItem,
+  Bare: memo(ValuePaperBare),
+  Item: memo(ValuePaperItem),
   Grid: (props) => {
     return <div className="value-paper__grid">{props.children}</div>;
   },

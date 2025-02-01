@@ -1,5 +1,5 @@
 import { Button, ColorInput, Grid, Group, NumberInput, Select, Space, TextInput } from "@mantine/core";
-import { useForm } from '@mantine/form';
+import { useForm } from "@mantine/form";
 import { useEffect, useLayoutEffect } from "react";
 import { notifications } from "@mantine/notifications";
 import { useSettingsStore, defaultSettings } from "@stores";
@@ -18,12 +18,16 @@ const DashboardSettings = (props) => {
 
   const handleSubmit = (values) => {
     set(values);
+    notifications.show({
+      title: "Settings Saved",
+      message: "Settings have been saved successfully",
+    });
   };
 
   const handleImport = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.json';
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
     input.onchange = (event) => {
       const file = event.target.files[0];
       const reader = new FileReader();
@@ -33,9 +37,9 @@ const DashboardSettings = (props) => {
           set(settings);
         } catch (error) {
           notifications.show({
-            title: 'Error Importing Settings',
-            message: 'Could not import settings from file',
-            color: 'red',
+            title: "Error Importing Settings",
+            message: "Could not import settings from file",
+            color: "red",
           });
         }
       };
@@ -51,11 +55,11 @@ const DashboardSettings = (props) => {
     const filename = "senseBox_dashboard_settings.json";
     const jsonStr = JSON.stringify(form.values);
 
-    const element = document.createElement('a');
-    element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(jsonStr));
-    element.setAttribute('download', filename);
+    const element = document.createElement("a");
+    element.setAttribute("href", "data:text/json;charset=utf-8," + encodeURIComponent(jsonStr));
+    element.setAttribute("download", filename);
 
-    element.style.display = 'none';
+    element.style.display = "none";
     document.body.appendChild(element);
 
     element.click();
@@ -86,8 +90,8 @@ const DashboardSettings = (props) => {
               label="Automatic Update Interval"
               description="Interval between automatic updates on live data page (in seconds)"
               placeholder={defaultSettings.automaticUpdateInterval}
-              key={form.key('automaticUpdateInterval')}
-              {...form.getInputProps('automaticUpdateInterval')}
+              key={form.key("automaticUpdateInterval")}
+              {...form.getInputProps("automaticUpdateInterval")}
               min={60}
               max={60*60*24}
               suffix="s"
@@ -99,8 +103,8 @@ const DashboardSettings = (props) => {
               label="Box Inactive After..."
               description="How long after the senseBox is marked as inactive (in hours)"
               placeholder={defaultSettings.boxInactiveAfter}
-              key={form.key('boxInactiveAfter')}
-              {...form.getInputProps('boxInactiveAfter')}
+              key={form.key("boxInactiveAfter")}
+              {...form.getInputProps("boxInactiveAfter")}
               min={1}
               max={24*7}
               suffix="h"
@@ -112,8 +116,8 @@ const DashboardSettings = (props) => {
               label="Sensor Inactive After..."
               description="How long after a sensor is marked as inactive (in hours)"
               placeholder={defaultSettings.sensorInactiveAfter}
-              key={form.key('sensorInactiveAfter')}
-              {...form.getInputProps('sensorInactiveAfter')}
+              key={form.key("sensorInactiveAfter")}
+              {...form.getInputProps("sensorInactiveAfter")}
               min={1}
               max={24*7}
               suffix="h"
@@ -125,8 +129,8 @@ const DashboardSettings = (props) => {
               label="Fallback Null Value"
               description="Value to display when a sensor value is not available"
               placeholder={defaultSettings.fallbackNullValue}
-              key={form.key('fallbackNullValue')}
-              {...form.getInputProps('fallbackNullValue')}
+              key={form.key("fallbackNullValue")}
+              {...form.getInputProps("fallbackNullValue")}
             />
           </Grid.Col>
         </Grid>
@@ -138,8 +142,8 @@ const DashboardSettings = (props) => {
               {...sharedStyle}
               label="Date Format"
               placeholder={defaultSettings.dateFormat}
-              key={form.key('dateFormat')}
-              {...form.getInputProps('dateFormat')}
+              key={form.key("dateFormat")}
+              {...form.getInputProps("dateFormat")}
               data={dateFormats}
             />
           </Grid.Col>
@@ -152,9 +156,9 @@ const DashboardSettings = (props) => {
               {...sharedStyle}
               label="Primary Dashboard Color"
               placeholder={defaultSettings.primaryDashboardColor}
-              key={form.key('primaryDashboardColor')}
-              {...form.getInputProps('primaryDashboardColor')}
-              swatches={['#2e2e2e', '#868e96', '#fa5252', '#e64980', '#be4bdb', '#7950f2', '#4c6ef5', '#228be6', '#15aabf', '#12b886', '#40c057', '#82c91e', '#fab005', '#fd7e14']}
+              key={form.key("primaryDashboardColor")}
+              {...form.getInputProps("primaryDashboardColor")}
+              swatches={["#2e2e2e", "#868e96", "#fa5252", "#e64980", "#be4bdb", "#7950f2", "#4c6ef5", "#228be6", "#15aabf", "#12b886", "#40c057", "#82c91e", "#fab005", "#fd7e14"]}
               format="hex"
               closeOnColorSwatchClick
             />

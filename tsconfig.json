@@ -5,10 +5,13 @@
     { "path": "./tsconfig.node.json" },
   ],
   "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,  // (optional) if you don't want TS to type-check JS files
+    "esModuleInterop": true,
+    "moduleResolution": "node",
     "module": "commonjs",
     "target": "es6",
     "strict": true,
-    "esModuleInterop": true,
     "composite": true,
     "noEmit": false,
     "baseUrl": ".",

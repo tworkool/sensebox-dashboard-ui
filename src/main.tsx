@@ -1,18 +1,22 @@
-import { Notifications } from '@mantine/notifications';
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import ThemeProvider from '@components/static/theme_provider/theme_provider';
+import { Notifications } from "@mantine/notifications";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import ThemeProvider from "@components/static/theme_provider/theme_provider";
 import App from "./App";
 import {
   QueryClient,
   QueryClientProvider,
-} from '@tanstack/react-query';
+} from "@tanstack/react-query";
+import relativeTime from "dayjs/plugin/relativeTime";
+import dayjs from "dayjs";
+
+dayjs.extend(relativeTime);
 
 const queryClient = new QueryClient();
 
 // styles
-import '@mantine/core/styles.css';
-import '@mantine/notifications/styles.css';
+import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import "@utils/osemicons.scss";
 import "./main.scss";
 
