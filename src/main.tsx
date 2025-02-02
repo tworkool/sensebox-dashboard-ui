@@ -8,9 +8,13 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import relativeTime from "dayjs/plugin/relativeTime";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import dayjs from "dayjs";
 
 dayjs.extend(relativeTime);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const queryClient = new QueryClient();
 
