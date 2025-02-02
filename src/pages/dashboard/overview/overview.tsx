@@ -1,24 +1,26 @@
-import { ActionIcon, Badge, Button, Chip, Grid, Group, Kbd, Modal, Skeleton, Stack, Switch, Text, TextInput, Title, Tooltip } from "@mantine/core";
+import { ActionIcon, Badge, Chip, Grid, Group, Skeleton, Space, Stack, Switch, Text, Title, Tooltip } from "@mantine/core";
 import ValuePaper from "@components/shared/value_paper/value_paper";
 /* import CustomCopyButton from "@components/shared/custom_copy_button/custom_copy_button"; */
 import { Icon } from "@iconify/react";
-import { useHotkeys, useDisclosure } from "@mantine/hooks";
 import IdenticonAvatar from "@components/shared/identicon_avatar/identicon_avatar";
 import { useQuery } from "@tanstack/react-query";
 import { OSEMBoxesService } from "@api/services/boxes";
 import { useMemo, useState } from "react";
 import dayjs from "dayjs";
 import { useSettingsStore } from "@stores";
+import DashboardBoxSearch from "@components/static/dashboard_box_search/dashboard_box_search";
 
 const DashboardOverview = () => {
   const settingsStore = useSettingsStore();
   const [selectedSenseBoxId, setSelectedSenseBoxId] = useState("5bf8373386f11b001aae627e");
-  const [opened, { open, close }] = useDisclosure(false);
-  useHotkeys([["mod+K", open]]);
+  console.log(settingsStore.current);
 
   const { data, isPending } = useQuery({
-    queryKey: ["OSEM_GET_ONE_BOX", selectedSenseBoxId],
+    queryKey: ["OSEM_GET_ONE_BOX", { senseBoxId: selectedSenseBoxId }],
     queryFn: async (params) => OSEMBoxesService.getOneSenseBox(params),
+    "refetchOnReconnect": false, // disable for now!
+    "refetchOnMount": false,
+    "refetchOnWindowFocus": false,
   });
 
   const unitLabelGroups = useMemo(() => {
@@ -29,14 +31,6 @@ const DashboardOverview = () => {
 
   return (
     <div>
-      <Modal p="sm" opened={opened} onClose={close} withCloseButton={false}>
-        <form onSubmit={(e) => { e.preventDefault(); close(); setSelectedSenseBoxId(e.target["search-sensebox"].value); }}>
-          <Stack>
-            <TextInput variant="filled" placeholder="My SenseBox 123" name="search-sensebox"></TextInput>
-            <Button type="submit">Select</Button>
-          </Stack>
-        </form>
-      </Modal>
       <Stack gap="xl">
         <Stack gap="sm">
           <Group>
@@ -47,12 +41,7 @@ const DashboardOverview = () => {
                 <Chip value="3" variant="filled">search</Chip>
               </Group>
             </Chip.Group>
-            <Button onClick={open} ml="auto" variant="subtle" size="xs" radius="xl" leftSection={<Icon icon="line-md:search-twotone" width="1rem" height="1rem" />}>
-              <Group gap="2px">
-                <Kbd size="xs">Ctrl</Kbd>
-                <Kbd size="xs">K</Kbd>
-              </Group>
-            </Button>
+            <DashboardBoxSearch onSelect={(boxId) => { setSelectedSenseBoxId(boxId); }} />
           </Group>
 
           <Grid>
@@ -81,13 +70,14 @@ const DashboardOverview = () => {
                   <Group align="flex-start">
                     {data?._id && <IdenticonAvatar id={data._id} size="xl" radius="xs">MK</IdenticonAvatar>}
                     <Stack gap="0.2rem">
-                      <Group gap="xs">
+                      <Group gap="0.2rem">
                         <Title order={2}>{data?.name}</Title>
-                        <Text c="dimmed" size="xs">{data?._id ? data._id : "Sample Sensebox"}</Text>
+                        <Text ff="monospace" c="dimmed" size="xs">{data?._id ? data._id : "Sample Sensebox"}</Text>
                         {/* <CustomCopyButton value="5bf8373386f11b001aae627e" /> */}
                       </Group>
-                      <Group gap="xs">
-                        <Badge size="sm" radius="sm" variant="light">{data?.active ? "active" : "inactive"}</Badge>
+                      <Space h="sm" />
+                      <Group gap="0.3rem">
+                        {data && <Badge size="sm" radius="sm" variant="light">{data?.active ? "active" : "inactive" + ` (${dayjs(data?.updatedAt).fromNow()})`}</Badge>}
                         <Badge size="sm" radius="sm" variant="light">{data?.exposure}</Badge>
                         <Badge size="sm" radius="sm" variant="light">{`${data?.sensors?.length} Sensors`}</Badge>
                         {data?.createdAt && <Badge size="sm" radius="sm" variant="light">{dayjs(data.createdAt).fromNow()}</Badge>}
@@ -132,7 +122,7 @@ const DashboardOverview = () => {
           </Group>
           <ValuePaper.Grid>
             {data && data?.sensors.map((sensor, index) => {
-              return <ValuePaper.Item key={index} value={sensor.lastMeasurement.value} unit={sensor.unit} subtitle={sensor.title} />;
+              return <ValuePaper.Item key={index} value={sensor.lastMeasurement?.value} unit={sensor.unit} subtitle={sensor.title} />;
             })}
             {(!data && isPending) && [...new Array(7)].map((_, index) => <Skeleton key={index} visible><ValuePaper.Item value={0} unit="N/A" subtitle="N/A" /></Skeleton>)}
             {/* <ValuePaper.Item color="green" value={1000} unit="N" subtitle="Druck" />

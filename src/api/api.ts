@@ -10,8 +10,6 @@ const OSEMApiClient = axios.create({
   (config) => {
     // mock api redirect
     if (ENVIRONMENT.MOCK_API_DATA) {
-      console.log(config.url);
-      console.log(`[MOCK API] Redirecting to mock API '${CONSTANTS.OSEM_MOCK_API_URL}'`);
       config.baseURL = CONSTANTS.OSEM_MOCK_API_URL;  // Redirect to the mock URL
     }
 
@@ -55,6 +53,13 @@ class RelativePathBuilder {
     return this;
   }
 
+  public appendQueryParams(params: Record<string, string>): RelativePathBuilder {
+    for (const key in params) {
+      this.appendQueryParam(key, params[key]);
+    }
+    return this;
+  }
+
   public build(): string {
     return this.path;
   }
@@ -63,4 +68,4 @@ class RelativePathBuilder {
 export {
   RelativePathBuilder,
   OSEMApiClient,
-}
+};

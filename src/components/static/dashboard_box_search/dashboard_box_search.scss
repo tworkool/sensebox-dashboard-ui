@@ -1,0 +1,31 @@
+.dashboard-box-search {
+  &__search-item {
+    padding: var(--mantine-spacing-xs);
+    border-radius: var(--mantine-radius-sm);
+
+    & p:first-of-type {
+      font-family: "Satoshi-Bold";
+    }
+
+    &:hover {
+      background-color: var(--mantine-color-dynamicPrimary-light-hover);
+    }
+  }
+
+  &__target {
+    & .mantine-Button-section {
+      margin: 0;
+    }
+
+    &:hover {
+      &,
+      .dashboard-box-search__target__kbg {
+        display: block;
+        margin-left: var(--mantine-spacing-xs);
+      }
+    }
+    &__kbg {
+      display: none;
+    }
+  }
+}

@@ -3,10 +3,12 @@ import "./value_paper.scss";
 import { Group } from "@mantine/core";
 import ValueConverter from "@components/shared/value_converter/value_converter";
 import { memo, useEffect, useRef } from "react";
+import { useSettingsStore } from "@stores";
 
 const ValuePaperItem = (props) => {
   const { color, value, unit, subtitle, withCopyButton = false } = props;
   const valueRef = useRef(null);
+  const settingsStore = useSettingsStore();
 
   useEffect(() => {
     if (valueRef.current) {
@@ -19,8 +21,10 @@ const ValuePaperItem = (props) => {
     <div className="value-paper__value" ref={valueRef}>
       {/* <span>{value}</span>
       <span>{unit}</span> */}
-      <ValueConverter value={value} unit={unit}>
-      </ValueConverter>
+      { (value != undefined && value != null && unit) ? 
+        <ValueConverter value={value} unit={unit}></ValueConverter> : 
+        <><span>{settingsStore?.current?.fallbackNullValue}</span> <span></span></> 
+      }
     </div>
   </ValuePaperBare>;
 };
