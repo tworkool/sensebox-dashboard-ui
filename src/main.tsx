@@ -16,7 +16,16 @@ dayjs.extend(relativeTime);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  "defaultOptions": {
+    "queries": {
+      "refetchOnMount": false,
+      "refetchOnReconnect": false,
+      "refetchOnWindowFocus": false,
+      "retry": 1,
+    },
+  }
+});
 
 // styles
 import "@mantine/core/styles.css";
