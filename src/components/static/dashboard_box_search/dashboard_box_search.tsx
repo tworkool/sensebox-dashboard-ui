@@ -22,8 +22,7 @@ const DashboardBoxSearch = (props: DashboardBoxSearchProps) => {
     queryKey: ["OSEM_SEARCH_BOXES", { minimal: true, name: currentSearchQuery }],
     queryFn: async (queryData) => {
       const [_, body] = queryData.queryKey;
-      console.log(body);
-      if (!body?.name) return null;
+      if (!body?.name) return [];
       return OSEMBoxesService.getAllSenseBoxes(queryData);
     },
     "refetchOnMount": false,
@@ -32,9 +31,10 @@ const DashboardBoxSearch = (props: DashboardBoxSearchProps) => {
   });
 
   const handleSearch = useDebouncedCallback(async (query: string) => {
+    if (!query || query.length < 2) return;
     // this will automatically update the search query
     setCurrentSearchQuery(query);
-  }, 500);
+  }, 800);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.currentTarget.value;
@@ -43,17 +43,22 @@ const DashboardBoxSearch = (props: DashboardBoxSearchProps) => {
     handleSearch(newValue);
   };
 
+  console.log(data, isFetching);
+
   return (
     <>
       <Modal p="sm" opened={opened} onClose={close} withCloseButton={false} radius="md" shadow="xl">
         <form onSubmit={(e) => { e.preventDefault(); }}>
           <Stack>
             <TextInput
+              radius="xl"
               minLength={2}
               defaultValue={value}
               onChange={handleChange}
               variant="filled"
               placeholder="My SenseBox 123"
+              size="md"
+              leftSection={<Icon icon="line-md:search-twotone" width="1rem" height="1rem" />}
               name="search-sensebox">
             </TextInput>
             {/* <Button type="submit">Select</Button> */}
@@ -75,8 +80,8 @@ const DashboardBoxSearch = (props: DashboardBoxSearchProps) => {
                   </UnstyledButton>
                 )}
               </Stack>
-              {!data && <Text c="dimmed" ta="center">no results</Text>}
-              <LoadingOverlay visible={isFetching} />
+              {(!data && !isFetching) && <Text c="dimmed" ta="center">no results</Text>}
+              <LoadingOverlay visible={isFetching} overlayProps={{ backgroundOpacity: 0, blur: 5 }} />
             </Container>
           </Stack>
         </form>

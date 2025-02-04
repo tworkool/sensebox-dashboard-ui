@@ -1,7 +1,7 @@
 import { RelativePathBuilder, OSEMApiClient } from "@api/api";
-import { 
+import {
   OSEM_Response_OneSenseBox, OSEM_Request_OneSenseBox,
-  OSEM_Response_AllSenseBoxes, OSEM_Request_AllSenseBoxes, 
+  OSEM_Response_AllSenseBoxes, OSEM_Request_AllSenseBoxes,
 } from "./types";
 import { ReactQueryKey } from "@api/shared.types";
 import { useSettingsStore } from "@stores";
@@ -26,9 +26,13 @@ const getOneSenseBox = async (
   // prepare data
   // active status
   const reData = response.data as OSEM_Response_OneSenseBox_E;
-  const boxInactiveAfter = useSettingsStore.getState()?.current?.boxInactiveAfter ?? 24;
-  const isActive = dayjs().diff(dayjs(reData.updatedAt), "hours") < boxInactiveAfter;
-  reData["active"] = isActive;
+  try {
+    const boxInactiveAfter = useSettingsStore.getState()?.current?.boxInactiveAfter ?? 24;
+    const isActive = dayjs().diff(dayjs(reData.updatedAt), "hours") < boxInactiveAfter;
+    reData["active"] = isActive;
+  } catch (e) {
+    console.warn(`Could not determine active status for senseBox: ${e}`, params.senseBoxId);
+  }
 
   // append timezone
   reData["updatedAt"] = dayjs(reData["updatedAt"]);

@@ -10,18 +10,6 @@ export type OSEM_Exposure = "outdoor" | "indoor" | "mobile" | "unknown";
 
 export type OSEM_Format = "json" | "geojson";
 
-export type OSEM_Model = 
-  | "homeEthernet"
-  | "homeWifi"
-  | "homeEthernetFeinstaub"
-  | "homeWifiFeinstaub"
-  | "luftdaten_sds011"
-  | "luftdaten_sds011_dht11"
-  | "luftdaten_sds011_dht22"
-  | "luftdaten_sds011_bmp180"
-  | "luftdaten_sds011_bme280"
-  | "custom";
-
 export type OSEM_Icon =
   | "osem-radioactive"
   | "osem-particulate-matter"
@@ -69,6 +57,18 @@ export type OSEM_Icon =
   | "osem-wifi"
   | "osem-battery"
   | "osem-co2";
+
+export type OSEM_Model = 
+  | "homeEthernet"
+  | "homeWifi"
+  | "homeEthernetFeinstaub"
+  | "homeWifiFeinstaub"
+  | "luftdaten_sds011"
+  | "luftdaten_sds011_dht11"
+  | "luftdaten_sds011_dht22"
+  | "luftdaten_sds011_bmp180"
+  | "luftdaten_sds011_bme280"
+  | "custom";
 
 export interface ReactQueryKey<T> {
   queryKey: [string, T];

@@ -4,9 +4,10 @@ import { Group } from "@mantine/core";
 import ValueConverter from "@components/shared/value_converter/value_converter";
 import { memo, useEffect, useRef } from "react";
 import { useSettingsStore } from "@stores";
+import OsemIcon from "@components/shared/osem_icon/osem_icon";
 
 const ValuePaperItem = (props) => {
-  const { color, value, unit, subtitle, withCopyButton = false } = props;
+  const { color, value, unit, subtitle, icon, withCopyButton = false } = props;
   const valueRef = useRef(null);
   const settingsStore = useSettingsStore();
 
@@ -18,6 +19,7 @@ const ValuePaperItem = (props) => {
   }, [color, value]);
 
   return <ValuePaperBare subtitle={subtitle} withCopyButton={withCopyButton}>
+    {icon && <OsemIcon className="value-paper__icon" icon={icon}></OsemIcon>}
     <div className="value-paper__value" ref={valueRef}>
       {/* <span>{value}</span>
       <span>{unit}</span> */}

@@ -30,8 +30,6 @@ const DashboardOverview = () => {
     setFilter("None");
   }, [selectedSenseBoxId]);
 
-  console.log(filter);
-
   const sensorFilterGroups = useMemo(() => {
     if (!data) return [];
     const units = data.sensors.map((sensor) => sensor[sensorFilterProperty]);
@@ -66,7 +64,7 @@ const DashboardOverview = () => {
                             <Icon icon="tabler:world-share" width="1rem" height="1rem" />
                           </ActionIcon>
                         </Tooltip>
-                        {data?.weblink && <Tooltip label={`open website: ${data.weblink}`} withArrow>
+                        {(data?.weblink && new URL(data.weblink)?.origin ) && <Tooltip label={`open website at ${new URL(data.weblink).origin}`} withArrow>
                           <ActionIcon component="a" href={data.weblink} target="_blank" variant="transparent" radius="xl" size="md">
                             <Icon icon="tabler:map-share" width="1rem" height="1rem" />
                           </ActionIcon>
@@ -149,7 +147,7 @@ const DashboardOverview = () => {
               </Group>
               <ValuePaper.Grid>
                 {data && data?.sensors.filter(sensor => !filter || filter === "None" || sensor[sensorFilterProperty] == filter).map((sensor, index) => {
-                  return <ValuePaper.Item key={index} value={sensor.lastMeasurement?.value} unit={sensor.unit} subtitle={sensor.title} />;
+                  return <ValuePaper.Item key={index} value={sensor.lastMeasurement?.value} unit={sensor.unit} subtitle={sensor.title} icon={sensor?.icon} />;
                 })}
                 {(!data && isPending) && [...new Array(7)].map((_, index) => <Skeleton key={index} visible><ValuePaper.Item value={0} unit="N/A" subtitle="N/A" /></Skeleton>)}
               </ValuePaper.Grid>

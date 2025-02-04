@@ -16,9 +16,18 @@ $transition-duration: 0.3s;
   transition: background-color $transition-duration ease;
   overflow: hidden;
 
+  &__icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    scale: 6;
+    opacity: 0.05;
+    transition: opacity $transition-duration ease;
+  }
+
   &__grid {
     /* padding: var(--mantine-spacing-md) 0; */
-    @include utils.grid(200px);
+    @include utils.grid(210px);
   }
 
   &__subtitle {
@@ -48,9 +57,16 @@ $transition-duration: 0.3s;
     }
 
     &--refresh {
-      &, .value-paper__value--refresh span:first-of-type {
+      &,
+      .value-paper__value--refresh span:first-of-type {
         animation: update-value-animation 2s ease;
       }
+    }
+  }
+
+  &:hover {
+    .value-paper__icon {
+      opacity: 0.15;
     }
   }
 
