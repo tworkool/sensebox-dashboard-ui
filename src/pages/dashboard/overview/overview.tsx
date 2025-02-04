@@ -101,11 +101,26 @@ const DashboardOverview = () => {
     <>
       <Stack gap="xl">
         <Group>
-          <Chip.Group multiple={false} value={selectedOverviewType} onChange={(value) => { setSelectedOverviewType(value as string); }}>
+          <Chip.Group multiple={false} value={selectedOverviewType}>
             <Group gap="xs">
               <Chip value="none" display="none">none</Chip>
-              {"geolocation" in navigator && <Chip disabled={isLoadingLocation} value="closest" variant="filled" onClick={handleClosestSelect}>closest to you</Chip>}
-              <Chip disabled={isLoadingLocation || !pinnedBoxStore.current?.boxId} value="pinned" variant="filled" onClick={handlePinnedSelect}>pinned</Chip>
+              {"geolocation" in navigator &&
+                <Chip
+                  disabled={isLoadingLocation}
+                  value="closest"
+                  variant="filled"
+                  icon={<Icon icon="tabler:location-pin" width="1rem" height="1rem" />}
+                  onClick={handleClosestSelect}>
+                  closest to you
+                </Chip>}
+              <Chip
+                disabled={isLoadingLocation || !pinnedBoxStore.current?.boxId}
+                value="pinned"
+                variant="filled"
+                icon={<Icon icon="tabler:pin" width="1rem" height="1rem" />}
+                onClick={handlePinnedSelect}>
+                pinned
+              </Chip>
               <Chip disabled={isLoadingLocation} value="search" variant="filled" display="none">search</Chip>
             </Group>
           </Chip.Group>
@@ -131,7 +146,7 @@ const DashboardOverview = () => {
                           </ActionIcon>
                         </Tooltip>}
                         <Tooltip label={isBoxPinned ? "unpin" : "pin"} withArrow>
-                          <ActionIcon variant={isBoxPinned ? "light" : "default"} radius="xl" size="md" onClick={() => { togglePin(); }}>
+                          <ActionIcon variant={isBoxPinned ? "filled" : "default"} radius="xl" size="md" onClick={() => { togglePin(); }}>
                             <Icon icon="tabler:pin" width="1rem" height="1rem" />
                           </ActionIcon>
                         </Tooltip>
@@ -216,10 +231,10 @@ const DashboardOverview = () => {
           </> : <>
             <Center>
               <Stack align="center" gap="sm" mt="md">
-                <Icon icon="tabler:cloud-data-connection" width="100" height="100" />
+                <Icon icon="carbon:retry-failed" width="100" height="100" />
                 <Group gap="xs" align="baseline">
                   <Text ta="center">Could not fetch data!</Text>
-                  <Button size="compact-sm" variant="transparent" onClick={() => { refetch(); }}>Retry</Button>
+                  <Button size="compact-sm" variant="transparent" p={0} onClick={() => { refetch(); }}>Retry</Button>
                 </Group>
               </Stack>
             </Center>

@@ -1,9 +1,10 @@
 import { Outlet, useLocation } from "react-router-dom";
 import React from "react";
-import DashboardMenu from '@components/static/dashboard_menu/dashboard_menu';
+import DashboardMenu from "@components/static/dashboard_menu/dashboard_menu";
 import "./dashboard.scss";
 import { useMemo } from "react";
 import { Icon } from "@iconify/react";
+import { Group } from "@mantine/core";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -28,7 +29,15 @@ const Dashboard = () => {
     <div className="dashboard__content">
       <Outlet />
     </div>
-  </div>
+    <div className="dashboard__footer">
+      <Group justify="space-between">
+        <span>© 2025 Oliver Tworkowski</span>
+        <span>
+          <a href="https://sensebox-data-dashboard.de/">GitHub Repository</a>
+        </span>
+      </Group>
+    </div>
+  </div>;
 };
 
 export default Dashboard;
