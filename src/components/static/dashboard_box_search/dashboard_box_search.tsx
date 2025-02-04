@@ -9,12 +9,13 @@ import "./dashboard_box_search.scss";
 
 export interface DashboardBoxSearchProps {
   onSelect: (senseBoxId: string) => void;
+  loading?: boolean;
 }
 
 const DashboardBoxSearch = (props: DashboardBoxSearchProps) => {
   const [value, setvalue] = useState<string>();
   const [currentSearchQuery, setCurrentSearchQuery] = useState<string>("");
-  const { onSelect } = props;
+  const { onSelect, loading } = props;
   const [opened, { open, close }] = useDisclosure(false);
   useHotkeys([["mod+K", open]]);
 
@@ -22,7 +23,7 @@ const DashboardBoxSearch = (props: DashboardBoxSearchProps) => {
     queryKey: ["OSEM_SEARCH_BOXES", { minimal: true, name: currentSearchQuery }],
     queryFn: async (queryData) => {
       const [_, body] = queryData.queryKey;
-      if (!body?.name) return [];
+      if (!body?.name) return null;
       return OSEMBoxesService.getAllSenseBoxes(queryData);
     },
     "refetchOnMount": false,
@@ -43,15 +44,15 @@ const DashboardBoxSearch = (props: DashboardBoxSearchProps) => {
     handleSearch(newValue);
   };
 
-  console.log(data, isFetching);
+  console.log(currentSearchQuery, data);
 
   return (
     <>
-      <Modal p="sm" opened={opened} onClose={close} withCloseButton={false} radius="md" shadow="xl">
+      <Modal p="sm" opened={opened} onClose={close} withCloseButton={false} radius="lg" shadow="xl">
         <form onSubmit={(e) => { e.preventDefault(); }}>
           <Stack>
             <TextInput
-              radius="xl"
+              radius="lg"
               minLength={2}
               defaultValue={value}
               onChange={handleChange}
@@ -69,11 +70,9 @@ const DashboardBoxSearch = (props: DashboardBoxSearchProps) => {
                     <Group>
                       <IdenticonAvatar id={box._id} radius="sm" />
                       <div>
-                        <Text c={"text"} fw="bold">
-                          <Highlight highlight={currentSearchQuery}>
-                            {box.name}
-                          </Highlight>
-                        </Text>
+                        <Highlight highlight={currentSearchQuery}>
+                          {box.name}
+                        </Highlight>
                         <Text c="dimmed" ff="monospace" size="xs">{box._id}</Text>
                       </div>
                     </Group>
@@ -87,6 +86,7 @@ const DashboardBoxSearch = (props: DashboardBoxSearchProps) => {
         </form>
       </Modal>
       <Button
+        loading={loading}
         className="dashboard-box-search__target"
         onClick={open} ml="auto" variant="default" size="xs" radius="xl"
         /* leftSection={<Icon icon="line-md:search-twotone" width="1rem" height="1rem" />} */

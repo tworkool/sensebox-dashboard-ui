@@ -5,17 +5,78 @@ import { Icon } from "@iconify/react";
 import IdenticonAvatar from "@components/shared/identicon_avatar/identicon_avatar";
 import { useQuery } from "@tanstack/react-query";
 import { OSEMBoxesService } from "@api/services/boxes";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
-import { useSettingsStore } from "@stores";
+import { useSettingsStore, usePinnedBoxStore } from "@stores";
 import DashboardBoxSearch from "@components/static/dashboard_box_search/dashboard_box_search";
+import { notifications } from "@mantine/notifications";
 
 const sensorFilterProperty = "title";
 
 const DashboardOverview = () => {
-  const settingsStore = useSettingsStore();
+  /* const settingsStore = useSettingsStore(); */
+  const pinnedBoxStore = usePinnedBoxStore();
   const [selectedSenseBoxId, setSelectedSenseBoxId] = useState("5bf8373386f11b001aae627e");
   const [filter, setFilter] = useState<string>("None");
+  const [selectedOverviewType, setSelectedOverviewType] = useState("none");
+  const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+  const isBoxPinned = pinnedBoxStore.current?.boxId === selectedSenseBoxId;
+
+  const handleSearch = useCallback((boxId: string) => {
+    setSelectedSenseBoxId(boxId);
+    setSelectedOverviewType("search");
+  }, []);
+
+  const handlePinnedSelect = useCallback(() => {
+    if (pinnedBoxStore.current?.boxId) {
+      setSelectedSenseBoxId(pinnedBoxStore.current.boxId);
+      setSelectedOverviewType("pinned");
+      return true;
+    }
+    return false;
+  }, [pinnedBoxStore]);
+
+  const handleClosestSelect = useCallback(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setIsLoadingLocation(true);
+        const queryKey = ["OSEM_PREVIEW_CLOSEST_BOX", {
+          limit: 1,
+          minimal: true,
+          near: [position.coords.longitude, position.coords.latitude],
+          maxDistance: 400,
+        }];
+        OSEMBoxesService.getAllSenseBoxes({ queryKey: queryKey }).then((data) => {
+          console.log(data);
+          if (data && data.length > 0) {
+            setSelectedOverviewType("closest");
+            setSelectedSenseBoxId(data[0]._id);
+          }
+        }).catch(() => {
+          notifications.show({ title: "Could not fetch closest box", message: "Please try again later", color: "red" });
+        }).finally(() => {
+          setIsLoadingLocation(false);
+        });
+      });
+      return true;
+    }
+    return false;
+  }, []);
+
+  // initial selection
+  useLayoutEffect(() => {
+    if (handlePinnedSelect()) return;
+    if (handleClosestSelect()) return;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const togglePin = () => {
+    if (isBoxPinned) {
+      pinnedBoxStore.set({ boxId: null });
+    } else {
+      pinnedBoxStore.set({ boxId: selectedSenseBoxId });
+    }
+  };
 
   const { data, isPending, refetch } = useQuery({
     queryKey: ["OSEM_GET_ONE_BOX", { senseBoxId: selectedSenseBoxId }],
@@ -40,19 +101,19 @@ const DashboardOverview = () => {
     <>
       <Stack gap="xl">
         <Group>
-          <Chip.Group>
+          <Chip.Group multiple={false} value={selectedOverviewType} onChange={(value) => { setSelectedOverviewType(value as string); }}>
             <Group gap="xs">
-              <Chip value="1" variant="filled">closest to you</Chip>
-              <Chip value="2" variant="filled">pinned</Chip>
-              <Chip value="3" variant="filled">search</Chip>
+              <Chip value="none" display="none">none</Chip>
+              {"geolocation" in navigator && <Chip disabled={isLoadingLocation} value="closest" variant="filled" onClick={handleClosestSelect}>closest to you</Chip>}
+              <Chip disabled={isLoadingLocation || !pinnedBoxStore.current?.boxId} value="pinned" variant="filled" onClick={handlePinnedSelect}>pinned</Chip>
+              <Chip disabled={isLoadingLocation} value="search" variant="filled" display="none">search</Chip>
             </Group>
           </Chip.Group>
-          <DashboardBoxSearch onSelect={(boxId) => { setSelectedSenseBoxId(boxId); }} />
+          <DashboardBoxSearch loading={isLoadingLocation} onSelect={(boxId) => { handleSearch(boxId); }} />
         </Group>
 
         {(data || isPending) ?
           <>
-
             <Grid>
               <Grid.Col span={6}>
                 <Skeleton visible={isPending}>
@@ -60,17 +121,17 @@ const DashboardOverview = () => {
                     {data &&
                       <Group style={{ top: "1rem", right: "1rem", position: "absolute", zIndex: 3 }} gap="xs">
                         <Tooltip label="open in OSM" withArrow>
-                          <ActionIcon component="a" href={`https://opensensemap.org/explore/${data._id}`} target="_blank" variant="transparent" radius="xl" size="md">
+                          <ActionIcon component="a" href={`https://opensensemap.org/explore/${data._id}`} target="_blank" variant="default" radius="xl" size="md">
                             <Icon icon="tabler:world-share" width="1rem" height="1rem" />
                           </ActionIcon>
                         </Tooltip>
-                        {(data?.weblink && new URL(data.weblink)?.origin ) && <Tooltip label={`open website at ${new URL(data.weblink).origin}`} withArrow>
-                          <ActionIcon component="a" href={data.weblink} target="_blank" variant="transparent" radius="xl" size="md">
+                        {(data?.weblink && new URL(data.weblink)?.origin) && <Tooltip label={`open website at ${new URL(data.weblink).origin}`} withArrow>
+                          <ActionIcon component="a" href={data.weblink} target="_blank" variant="default" radius="xl" size="md">
                             <Icon icon="tabler:map-share" width="1rem" height="1rem" />
                           </ActionIcon>
                         </Tooltip>}
-                        <Tooltip label="pin" withArrow>
-                          <ActionIcon variant="light" radius="xl" size="md">
+                        <Tooltip label={isBoxPinned ? "unpin" : "pin"} withArrow>
+                          <ActionIcon variant={isBoxPinned ? "light" : "default"} radius="xl" size="md" onClick={() => { togglePin(); }}>
                             <Icon icon="tabler:pin" width="1rem" height="1rem" />
                           </ActionIcon>
                         </Tooltip>

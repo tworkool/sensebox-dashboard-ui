@@ -24,6 +24,7 @@ const CONSTANTS = {
   SENSEBOX_SEARCH_HOTKEY: "K",
   THEME_LOCALSTORAGE_KEY: "sbd-color-theme",
   SETTINGS_LOCALSTORAGE_KEY: "dashboard-settings",
+  PINNED_BOX_LOCALSTORAGE_KEY: "pinned-box",
   OSEM_API_URL: "https://api.opensensemap.org/",
   OSEM_MOCK_API_URL: "http://localhost:3001/",
 };

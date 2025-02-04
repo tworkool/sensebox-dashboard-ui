@@ -23,5 +23,11 @@ const defaultSettings: ISettings = {
 
 const useSettingsStore = createStore<ISettings>(defaultSettings, CONSTANTS.SETTINGS_LOCALSTORAGE_KEY);
 
-export { useSettingsStore, defaultSettings };
-export type { ISettings };
+interface IPinnedBox {
+  boxId: string | null;
+};
+
+const usePinnedBoxStore = createStore<IPinnedBox>({ boxId: null }, CONSTANTS.PINNED_BOX_LOCALSTORAGE_KEY);
+
+export { useSettingsStore, defaultSettings, usePinnedBoxStore };
+export type { ISettings, IPinnedBox };
