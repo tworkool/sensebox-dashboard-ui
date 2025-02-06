@@ -51,9 +51,11 @@ const DashboardOverview = () => {
           if (data && data.length > 0) {
             setSelectedOverviewType("closest");
             setSelectedSenseBoxId(data[0]._id);
+          } else {
+            notifications.show({ message: "No nearby boxes found", color: "orange" });
           }
         }).catch(() => {
-          notifications.show({ title: "Could not fetch closest box", message: "Please try again later", color: "red" });
+          notifications.show({ title: "Could not fetch nearby box", message: "Please try again later", color: "red" });
         }).finally(() => {
           setIsLoadingLocation(false);
         });
